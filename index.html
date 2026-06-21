@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibby — Build with AI. Sell for real.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --g:#00C27C;--gd:#009960;
+  --ink:#09110a;--ink2:#4a5d51;--ink3:#8fa898;
+  --line:#e6ece7;--line2:#cddacf;--w:#fff;--bg:#f6f7f6;
+}
+html,body{font-family:'Inter',sans-serif;background:var(--w);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* NAV */
+.nav{position:fixed;inset:0 0 auto;z-index:100;height:54px;padding:0 24px;display:flex;align-items:center;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);}
+.nlogo{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:800;letter-spacing:-.4px;}
+.nlogo-ic{width:28px;height:28px;background:var(--g);border-radius:7px;display:grid;place-items:center;}
+.nlogo-ic svg{width:14px;height:14px;}
+.nav-r{margin-left:auto;display:flex;gap:8px;}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid transparent;font-family:inherit;transition:all .14s;white-space:nowrap;text-decoration:none;line-height:1;}
+.btn-out{color:var(--ink2);border-color:var(--line2);}
+.btn-out:hover{color:var(--ink);border-color:var(--ink3);}
+.btn-g{background:var(--g);color:#fff;}
+.btn-g:hover{background:var(--gd);box-shadow:0 4px 18px rgba(0,194,124,.3);}
+.btn-xl{padding:14px 32px;font-size:15px;border-radius:10px;font-weight:700;display:inline-flex;align-items:center;gap:7px;text-decoration:none;cursor:pointer;border:none;font-family:inherit;}
+.btn-xl-out{padding:13px 28px;font-size:15px;border-radius:10px;font-weight:600;color:var(--ink2);border:1.5px solid var(--line2);background:transparent;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:inherit;transition:all .14s;text-decoration:none;}
+.btn-xl-out:hover{color:var(--ink);border-color:var(--ink3);}
+
+/* HERO */
+.hero{padding:100px 24px 0;text-align:center;background:var(--w);}
+.hero-in{max-width:800px;margin:0 auto;}
+.h-a{opacity:0;transform:translateY(22px);animation:hIn .7s cubic-bezier(.16,1,.3,1) forwards;}
+.d1{animation-delay:.05s;}.d2{animation-delay:.16s;}.d3{animation-delay:.27s;}.d4{animation-delay:.37s;}.d5{animation-delay:.46s;}.d6{animation-delay:.53s;}
+@keyframes hIn{to{opacity:1;transform:none;}}
+
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(0,194,124,.08);border:1px solid rgba(0,194,124,.2);border-radius:100px;padding:5px 13px 5px 9px;font-size:12px;font-weight:600;color:var(--gd);margin-bottom:22px;}
+.chip-dot{width:6px;height:6px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(0,194,124,.55);}50%{box-shadow:0 0 0 5px rgba(0,194,124,0);}}
+
+h1{font-size:clamp(44px,7.5vw,96px);font-weight:900;letter-spacing:-4px;line-height:.92;color:var(--ink);margin-bottom:20px;}
+h1 .g{background:linear-gradient(135deg,#009960,#00C27C 45%,#22d68d);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+.hero-sub{font-size:clamp(15px,1.7vw,18px);color:var(--ink2);line-height:1.6;max-width:460px;margin:0 auto 32px;}
+.hero-sub strong{color:var(--ink);font-weight:600;}
+.hero-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+.hero-fine{font-size:12px;color:var(--ink3);margin-bottom:52px;}
+
+/* ── DASHBOARD ── */
+.dash-wrap{max-width:960px;margin:0 auto;}
+.dash{background:#09110a;border-radius:18px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.05),0 20px 70px rgba(0,0,0,.22),0 60px 120px rgba(0,0,0,.12);}
+
+/* titlebar */
+.d-bar{height:38px;background:#0d1510;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;padding:0 14px;gap:6px;}
+.d-dot{width:10px;height:10px;border-radius:50%;}
+.d-url{flex:1;max-width:220px;margin:0 auto;height:21px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:5px;display:flex;align-items:center;padding:0 9px;gap:5px;}
+.d-url-g{width:6px;height:6px;border-radius:50%;background:var(--g);}
+.d-url-t{font-size:10px;color:rgba(255,255,255,.3);font-family:monospace;}
+.d-live{display:flex;align-items:center;gap:4px;background:rgba(0,194,124,.1);border:1px solid rgba(0,194,124,.2);border-radius:100px;padding:2px 9px;margin-left:auto;}
+.d-ld{width:5px;height:5px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
+.d-lt{font-size:10px;font-weight:600;color:#4ade80;}
+
+/* layout */
+.d-layout{display:grid;grid-template-columns:148px 1fr;height:560px;}
+
+/* sidebar */
+.d-side{background:#0d1510;border-right:1px solid rgba(255,255,255,.06);padding:14px 10px;display:flex;flex-direction:column;}
+.ds-logo{display:flex;align-items:center;gap:7px;padding:6px 8px;margin-bottom:12px;}
+.ds-logo-ic{width:20px;height:20px;background:var(--g);border-radius:5px;display:grid;place-items:center;}
+.ds-logo-ic svg{width:10px;height:10px;}
+.ds-logo-t{font-size:13px;font-weight:800;color:#fff;}
+.ds-nav{display:flex;flex-direction:column;gap:1px;}
+.ds-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;font-size:11px;font-weight:500;color:rgba(255,255,255,.38);}
+.ds-item.on{background:rgba(255,255,255,.06);color:rgba(255,255,255,.88);}
+.ds-item svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0;}
+.ds-bottom{margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:6px;}
+.ds-stat{padding:8px;}
+.ds-stat-l{font-size:8px;font-weight:700;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.ds-stat-v{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.5px;}
+.ds-stat-v.g{color:var(--g);}
+.ds-stat-t{font-size:9px;color:var(--g);font-weight:600;margin-top:2px;}
+
+/* main */
+.d-main{display:flex;flex-direction:column;overflow:hidden;background:#0a0f0b;}
+.d-top{height:42px;background:#0d1510;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;padding:0 18px;gap:10px;flex-shrink:0;}
+.d-top-t{font-size:13px;font-weight:700;color:rgba(255,255,255,.8);flex:1;}
+.d-period{font-size:11px;color:rgba(255,255,255,.28);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:5px;padding:3px 9px;}
+.d-body{flex:1;padding:14px;overflow:hidden;display:flex;flex-direction:column;gap:10px;}
+.d-mid-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* metrics */
+.mets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.met{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 13px;}
+.met.feat{border-top:1.5px solid var(--g);}
+.met-l{font-size:8px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.met-v{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.6px;line-height:1.1;}
+.met-v.g{color:var(--g);}
+.met-t{font-size:9px;font-weight:600;color:var(--g);margin-top:3px;}
+.met-t.n{color:rgba(255,255,255,.2);}
+
+/* legacy - unused */
+.d-grid{display:none;}
+
+/* chart */
+.chart-c{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;overflow:hidden;}
+.cc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-shrink:0;}
+.cc-l{font-size:8px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;}
+.cc-v{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.6px;line-height:1;}
+.cc-up{font-size:9px;font-weight:600;color:var(--g);margin-top:2px;}
+.cc-svg{flex:1;min-height:0;}
+.cc-svg svg{width:100%;height:100%;display:block;}
+
+/* recent orders */
+.orders-c{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;overflow:hidden;}
+.oc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-shrink:0;}
+.oc-l{font-size:8px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;}
+.oc-live{display:flex;align-items:center;gap:4px;font-size:8px;font-weight:600;color:#4ade80;}
+.oc-ld{width:4px;height:4px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
+.o-list{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+.o-r{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.o-r:last-child{border-bottom:none;}
+.o-av{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:8px;font-weight:800;color:#fff;flex-shrink:0;}
+.o-info{flex:1;min-width:0;}
+.o-name{font-size:11px;font-weight:600;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.o-prod{font-size:9px;color:rgba(255,255,255,.28);margin-top:1px;}
+.o-amt{font-size:11px;font-weight:800;color:#fff;flex-shrink:0;}
+.o-bdg{font-size:8px;font-weight:700;background:rgba(0,194,124,.12);color:#4ade80;border:1px solid rgba(0,194,124,.2);padding:1px 6px;border-radius:100px;margin-left:4px;flex-shrink:0;}
+.o-new{animation:oIn .35s cubic-bezier(.16,1,.3,1);}
+@keyframes oIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
+
+/* bottom panel: chart + globe side by side */
+.d-bottom-row{display:grid;grid-template-columns:1fr 280px;gap:10px;flex:1;min-height:0;}
+
+/* globe panel */
+.globe-panel{background:#090e0b;border:1px solid rgba(255,255,255,.09);border-radius:8px;display:grid;grid-template-columns:1fr 130px;overflow:hidden;position:relative;min-height:160px;}
+.globe-canvas-wrap{position:relative;background:#090e0b;overflow:hidden;min-width:0;align-self:stretch;}
+.globe-canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+/* right info panel */
+.globe-info{border-left:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;overflow:hidden;}
+.gi-head{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;}
+.gi-title{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;}
+.gi-count{font-size:18px;font-weight:800;color:var(--g);letter-spacing:-.5px;margin-top:2px;line-height:1;}
+.gi-sub{font-size:9px;color:rgba(255,255,255,.25);margin-top:2px;}
+.gi-live{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;}
+.gi-live-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.gi-live-row:last-child{margin-bottom:0;}
+.gi-live-city{font-size:10px;font-weight:600;color:rgba(255,255,255,.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px;}
+.gi-live-amt{font-size:10px;font-weight:800;color:var(--g);flex-shrink:0;}
+.gi-live-new{animation:dfIn .35s cubic-bezier(.16,1,.3,1);}
+@keyframes dfIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+/* countries list */
+.gi-countries{flex:1;padding:8px 12px;overflow:hidden;}
+.gi-countries-t{font-size:8px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.gi-country{display:flex;align-items:center;gap:5px;margin-bottom:5px;}
+.gi-country-dot{width:5px;height:5px;border-radius:50%;background:var(--g);opacity:.6;flex-shrink:0;}
+.gi-country-name{font-size:9px;font-weight:500;color:rgba(255,255,255,.4);}
+/* gp-head stays for compat */
+.gp-head{display:none;}
+.gp-feed{display:none;}
+
+/* ── TOOLS STRIP ── */
+.tools-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;}
+.tools-label{font-size:12px;font-weight:500;color:var(--ink3);white-space:nowrap;}
+.tool-tag{display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--line);border-radius:100px;padding:5px 13px 5px 7px;font-size:12px;font-weight:600;color:var(--ink2);white-space:nowrap;transition:border-color .12s;}
+.tool-tag:hover{border-color:var(--ink3);}
+.tool-ic{width:20px;height:20px;border-radius:5px;display:grid;place-items:center;flex-shrink:0;}
+
+/* ── HOW ── */
+.how{padding:80px 24px;border-bottom:1px solid var(--line);}
+.how-in{max-width:960px;margin:0 auto;}
+.sec-ey{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
+.sec-h{font-size:clamp(30px,4.5vw,52px);font-weight:900;letter-spacing:-2px;line-height:.97;}
+.how-head{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:end;margin-bottom:36px;}
+.how-p{font-size:15px;color:var(--ink2);line-height:1.65;padding-bottom:2px;}
+.how-cols{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.hc{background:var(--w);padding:26px 22px;border-right:1px solid var(--line);position:relative;}
+.hc:last-child{border-right:none;}
+.hc:hover{background:var(--bg);}
+.hc-n{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+.hc-n::after{content:'';flex:1;height:1px;background:var(--line);}
+.hc-ic{width:36px;height:36px;border:1px solid var(--line);border-radius:9px;background:var(--bg);display:grid;place-items:center;margin-bottom:12px;}
+.hc-ic svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;}
+.hc-t{font-size:15px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px;}
+.hc-d{font-size:12px;color:var(--ink2);line-height:1.6;}
+.hc-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:12px;}
+.hc-pill{font-size:10px;font-weight:500;color:var(--ink2);background:var(--bg);border:1px solid var(--line);border-radius:100px;padding:2px 8px;}
+
+/* ── BEFORE/AFTER ── */
+.ba-sec{padding:80px 24px;border-bottom:1px solid var(--line);background:var(--ink);}
+.ba-in{max-width:880px;margin:0 auto;}
+.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:center;margin-top:40px;}
+.ba-col{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;}
+.ba-hd{padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.07);}
+.ba-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:3px 9px;border-radius:100px;}
+.ba-tag.b{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.2);}
+.ba-tag.a{background:rgba(0,194,124,.12);color:#4ade80;border:1px solid rgba(0,194,124,.2);}
+.ba-body{padding:16px 18px;}
+.ba-step{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.ba-step:last-child{border-bottom:none;}
+.ba-ic{font-size:14px;flex-shrink:0;width:20px;text-align:center;}
+.ba-t{font-size:12px;font-weight:500;color:rgba(255,255,255,.75);line-height:1.4;}
+.ba-s{font-size:10px;color:rgba(255,255,255,.28);margin-top:2px;}
+.ba-arr{padding:0 24px;}
+.ba-arr-ic{width:44px;height:44px;background:var(--g);border-radius:50%;display:grid;place-items:center;box-shadow:0 0 24px rgba(0,194,124,.35);}
+.ba-arr-ic svg{width:18px;height:18px;}
+
+/* ── MISSION ── */
+.mission-sec{padding:80px 24px;border-bottom:1px solid var(--line);}
+.mission-in{max-width:640px;margin:0 auto;text-align:center;}
+.mission-h{font-size:clamp(26px,4vw,44px);font-weight:900;letter-spacing:-1.5px;line-height:1.05;color:var(--ink);margin-bottom:16px;}
+.mission-h em{color:var(--g);font-style:normal;}
+.mission-p{font-size:16px;color:var(--ink2);line-height:1.6;}
+
+/* ── COMPARE ── */
+.cmp-sec{padding:80px 24px;border-bottom:1px solid var(--line);background:var(--bg);}
+.cmp-in{max-width:700px;margin:0 auto;}
+.cmp-philo{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:32px;margin-bottom:12px;}
+.cp{background:var(--w);padding:28px 26px;}
+.cp.vibby{background:rgba(0,194,124,.04);}
+.cp-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;color:var(--ink3);}
+.cp.vibby .cp-tag{color:var(--gd);}
+.cp-h{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--ink);margin-bottom:6px;line-height:1.2;}
+.cp-p{font-size:13px;color:var(--ink2);line-height:1.55;}
+.cmp-t{border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.cmp-th{display:grid;grid-template-columns:1.6fr 1fr 1fr;background:var(--bg);border-bottom:1px solid var(--line);}
+.cmp-th div{padding:10px 18px;font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.4px;}
+.cmp-th .hi{color:var(--g);}
+.cmp-tr{display:grid;grid-template-columns:1.6fr 1fr 1fr;border-bottom:1px solid var(--line);transition:background .1s;}
+.cmp-tr:last-child{border-bottom:none;}
+.cmp-tr:hover{background:var(--bg);}
+.cmp-tr div{padding:12px 18px;font-size:13px;color:var(--ink2);display:flex;align-items:center;}
+.cmp-tr div:first-child{font-weight:600;color:var(--ink);}
+.yes{color:var(--g);font-weight:700;}
+.nope{color:var(--ink3);}
+
+/* ── QUOTE ── */
+.quote{padding:64px 24px;border-bottom:1px solid var(--line);text-align:center;}
+.q-in{max-width:580px;margin:0 auto;}
+.q-t{font-size:clamp(17px,2.2vw,22px);font-weight:700;color:var(--ink);line-height:1.4;letter-spacing:-.2px;margin-bottom:16px;}
+.q-t em{color:var(--g);font-style:normal;}
+.q-a{font-size:12px;color:var(--ink3);}
+
+/* ── CTA ── */
+.cta{padding:100px 24px;text-align:center;background:var(--bg);}
+.cta-in{max-width:480px;margin:0 auto;}
+.cta h2{font-size:clamp(34px,5.5vw,60px);font-weight:900;letter-spacing:-2.5px;line-height:.95;margin-bottom:14px;}
+.cta h2 .g{background:linear-gradient(135deg,#009960,#00C27C 45%,#22d68d);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.cta p{font-size:16px;color:var(--ink2);margin-bottom:28px;line-height:1.55;}
+.cta-fine{font-size:12px;color:var(--ink3);margin-top:12px;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:20px 24px;}
+.fi{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.fl{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:800;}
+.flic{width:20px;height:20px;background:var(--g);border-radius:5px;display:grid;place-items:center;}
+.flic svg{width:10px;height:10px;}
+.fc_{font-size:12px;color:var(--ink3);}
+.fls{display:flex;gap:18px;}
+.fls a{font-size:12px;color:var(--ink3);transition:color .12s;}
+.fls a:hover{color:var(--ink);}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease;}
+.rv.in{opacity:1;transform:none;}
+
+/* MOBILE */
+@media(max-width:680px){
+  h1{letter-spacing:-2.5px;}
+  .btn-xl,.btn-xl-out{padding:12px 20px;font-size:14px;}
+  .d-layout{grid-template-columns:1fr;height:auto;}
+  .d-side{display:none;}
+  .mets{grid-template-columns:1fr 1fr;gap:6px;}
+  .met{padding:10px 12px;}
+  .met-v{font-size:17px;}
+  .met-l{font-size:8px;}
+  .met-t{font-size:9px;}
+  .d-mid-row{grid-template-columns:1fr;}
+  .orders-c{display:none;}
+  .d-bottom-row{grid-template-columns:1fr;}
+  .chart-c.weekly{display:none;}
+  .globe-panel{grid-template-columns:1fr 110px;height:160px;}
+  .globe-info{display:flex;}
+  .gi-countries{display:none;}
+  .d-body{padding:10px;gap:8px;}
+  .d-top{height:36px;}
+  .d-main{min-height:0;}
+  .how-head{grid-template-columns:1fr;gap:14px;margin-bottom:24px;}
+  .how-cols{grid-template-columns:1fr 1fr;}
+  .hc{border-right:none;border-bottom:1px solid var(--line);}
+  .hc:nth-child(odd){border-right:1px solid var(--line);}
+  .hc:nth-last-child(-n+2){border-bottom:none;}
+  .ba-grid{grid-template-columns:1fr;gap:12px;}
+  .ba-arr{transform:rotate(90deg);display:flex;justify-content:center;padding:12px 0;}
+  .cmp-philo{grid-template-columns:1fr;}
+  .cmp-th,.cmp-tr{grid-template-columns:1.3fr 1fr 1fr;}
+  .cmp-th div,.cmp-tr div{padding:9px 10px;font-size:11px;}
+  .fi{flex-direction:column;gap:10px;text-align:center;}
+  .tools-strip{gap:8px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nlogo">
+    <div class="nlogo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>
+    vibby
+  </div>
+  <div class="nav-r">
+    <a href="vibby.html" class="btn btn-out">Log in</a>
+    <a href="vibby.html" class="btn btn-g">Start free →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-in">
+    <div class="chip h-a d1"><span class="chip-dot"></span>Commerce for AI-built websites</div>
+    <h1 class="h-a d2">Build with AI.<br><span class="g">Sell for real.</span></h1>
+    <p class="hero-sub h-a d3">You built something great with Claude or Cursor. Now sell from it. <strong>Vibby adds Shopify-level commerce to any AI-built website</strong> — no backend, no templates.</p>
+    <div class="hero-btns h-a d4">
+      <a href="vibby.html" class="btn btn-g btn-xl">Launch your store →</a>
+      <a href="#how" class="btn-xl-out">See how it works</a>
+    </div>
+    <div class="hero-fine h-a d5">Free · No credit card · Works with any HTML</div>
+
+    <!-- DASHBOARD -->
+    <div class="dash-wrap h-a d6">
+      <div class="dash">
+        <div class="d-bar">
+          <div style="display:flex;gap:5px;">
+            <div class="d-dot" style="background:#ff5f57;"></div>
+            <div class="d-dot" style="background:#ffbd2e;"></div>
+            <div class="d-dot" style="background:#28c840;"></div>
+          </div>
+          <div class="d-url"><div class="d-url-g"></div><span class="d-url-t">app.vibby.io</span></div>
+          <div class="d-live"><span class="d-ld"></span><span class="d-lt">Live</span></div>
+        </div>
+        <div class="d-layout">
+          <!-- SIDEBAR -->
+          <div class="d-side">
+            <div class="ds-logo">
+              <div class="ds-logo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>
+              <span class="ds-logo-t">vibby</span>
+            </div>
+            <div class="ds-nav">
+              <div class="ds-item on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Overview</div>
+              <div class="ds-item"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Orders</div>
+              <div class="ds-item"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>Products</div>
+              <div class="ds-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Customers</div>
+              <div class="ds-item"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Analytics</div>
+            </div>
+            <div class="ds-bottom">
+              <div class="ds-stat">
+                <div class="ds-stat-l">Revenue today</div>
+                <div class="ds-stat-v g" id="s-rev">$0</div>
+                <div class="ds-stat-t">↑ Live</div>
+              </div>
+              <div class="ds-stat">
+                <div class="ds-stat-l">Orders today</div>
+                <div class="ds-stat-v" id="s-ord">0</div>
+              </div>
+            </div>
+          </div>
+          <!-- MAIN -->
+          <div class="d-main">
+            <div class="d-top">
+              <span class="d-top-t">Overview</span>
+              <span class="d-period">Last 30 days</span>
+            </div>
+            <div class="d-body">
+              <div class="mets">
+                <div class="met feat">
+                  <div class="met-l">Revenue</div>
+                  <div class="met-v g" id="m-rev">$12,480</div>
+                  <div class="met-t">↑ +28% this month</div>
+                </div>
+                <div class="met">
+                  <div class="met-l">Orders</div>
+                  <div class="met-v" id="m-ord">143</div>
+                  <div class="met-t">↑ +17 this week</div>
+                </div>
+                <div class="met">
+                  <div class="met-l">Customers</div>
+                  <div class="met-v" id="m-cust">98</div>
+                  <div class="met-t">↑ +12 new</div>
+                </div>
+                <div class="met">
+                  <div class="met-l">Avg. order</div>
+                  <div class="met-v">$87</div>
+                  <div class="met-t n">All products</div>
+                </div>
+              </div>
+              <!-- MID ROW: chart + orders -->
+              <div class="d-mid-row">
+                <div class="chart-c">
+                  <div class="cc-top">
+                    <div><div class="cc-l">Revenue — 30 days</div></div>
+                    <div style="text-align:right;"><div class="cc-v">$12,480</div><div class="cc-up">↑ +28%</div></div>
+                  </div>
+                  <div class="cc-svg">
+                    <svg viewBox="0 0 380 80" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#00C27C" stop-opacity=".2"/>
+                          <stop offset="100%" stop-color="#00C27C" stop-opacity="0"/>
+                        </linearGradient>
+                        <filter id="gl"><feGaussianBlur stdDeviation="1.5"/></filter>
+                      </defs>
+                      <line x1="0" y1="20" x2="380" y2="20" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                      <line x1="0" y1="40" x2="380" y2="40" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                      <line x1="0" y1="60" x2="380" y2="60" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                      <path d="M0,68 C25,64 50,61 80,56 C110,51 130,53 160,46 C190,39 210,36 240,28 C270,20 295,22 325,13 C345,7 362,5 380,3" fill="none" stroke="#00C27C" stroke-width="3" stroke-linecap="round" opacity=".2" filter="url(#gl)"/>
+                      <path d="M0,68 C25,64 50,61 80,56 C110,51 130,53 160,46 C190,39 210,36 240,28 C270,20 295,22 325,13 C345,7 362,5 380,3" fill="none" stroke="#00C27C" stroke-width="1.8" stroke-linecap="round"/>
+                      <path d="M0,68 C25,64 50,61 80,56 C110,51 130,53 160,46 C190,39 210,36 240,28 C270,20 295,22 325,13 C345,7 362,5 380,3 L380,80 L0,80Z" fill="url(#cg)"/>
+                      <circle cx="378" cy="3.5" r="4" fill="#00C27C"/>
+                      <circle cx="378" cy="3.5" r="4" fill="none" stroke="#00C27C" stroke-opacity=".3">
+                        <animate attributeName="r" from="4" to="12" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="stroke-opacity" from=".3" to="0" dur="2s" repeatCount="indefinite"/>
+                      </circle>
+                    </svg>
+                  </div>
+                </div>
+                <div class="orders-c">
+                  <div class="oc-head">
+                    <span class="oc-l">Recent orders</span>
+                    <div class="oc-live"><span class="oc-ld"></span>Live</div>
+                  </div>
+                  <div class="o-list" id="o-list">
+                    <div class="o-r"><div class="o-av" style="background:#7c3aed;">ML</div><div class="o-info"><div class="o-name">Marie L.</div><div class="o-prod">Digital course</div></div><div class="o-amt">$97</div><div class="o-bdg">Paid</div></div>
+                    <div class="o-r"><div class="o-av" style="background:#0891b2;">JB</div><div class="o-info"><div class="o-name">Jean B.</div><div class="o-prod">UI Kit Pro</div></div><div class="o-amt">$49</div><div class="o-bdg">Paid</div></div>
+                    <div class="o-r"><div class="o-av" style="background:#d97706;">SC</div><div class="o-info"><div class="o-name">Sophie C.</div><div class="o-prod">Consulting</div></div><div class="o-amt">$299</div><div class="o-bdg">Paid</div></div>
+                    <div class="o-r"><div class="o-av" style="background:#9333ea;">TK</div><div class="o-info"><div class="o-name">Thomas K.</div><div class="o-prod">Templates pack</div></div><div class="o-amt">$67</div><div class="o-bdg">Paid</div></div>
+                  </div>
+                </div>
+              </div>
+              <!-- BOTTOM ROW: chart area + globe -->
+              <div class="d-bottom-row">
+                <!-- left: empty space or extra chart -->
+                <div class="chart-c weekly" style="min-height:0;">
+                  <div class="cc-top" style="margin-bottom:6px;">
+                    <div><div class="cc-l">Weekly breakdown</div></div>
+                    <div style="text-align:right;"><div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.5);">Mon–Sun</div></div>
+                  </div>
+                  <div class="cc-svg" style="flex:1;">
+                    <svg viewBox="0 0 280 60" preserveAspectRatio="none">
+                      <defs><linearGradient id="cg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00C27C" stop-opacity=".15"/><stop offset="100%" stop-color="#00C27C" stop-opacity="0"/></linearGradient></defs>
+                      <g>
+                        <rect x="5" y="40" width="30" height="20" fill="rgba(0,194,124,.12)" rx="3"/>
+                        <rect x="45" y="30" width="30" height="30" fill="rgba(0,194,124,.16)" rx="3"/>
+                        <rect x="85" y="22" width="30" height="38" fill="rgba(0,194,124,.2)" rx="3"/>
+                        <rect x="125" y="35" width="30" height="25" fill="rgba(0,194,124,.14)" rx="3"/>
+                        <rect x="165" y="12" width="30" height="48" fill="rgba(0,194,124,.28)" rx="3"/>
+                        <rect x="205" y="18" width="30" height="42" fill="rgba(0,194,124,.24)" rx="3"/>
+                        <rect x="245" y="5" width="30" height="55" fill="rgba(0,194,124,.35)" rx="3"/>
+                      </g>
+                      <text x="20" y="57" font-size="7" fill="rgba(255,255,255,.2)" text-anchor="middle" font-family="Inter,sans-serif">M</text>
+                      <text x="60" y="57" font-size="7" fill="rgba(255,255,255,.2)" text-anchor="middle" font-family="Inter,sans-serif">T</text>
+                      <text x="100" y="57" font-size="7" fill="rgba(255,255,255,.2)" text-anchor="middle" font-family="Inter,sans-serif">W</text>
+                      <text x="140" y="57" font-size="7" fill="rgba(255,255,255,.2)" text-anchor="middle" font-family="Inter,sans-serif">T</text>
+                      <text x="180" y="57" font-size="7" fill="rgba(255,255,255,.3)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="bold">F</text>
+                      <text x="220" y="57" font-size="7" fill="rgba(255,255,255,.2)" text-anchor="middle" font-family="Inter,sans-serif">S</text>
+                      <text x="260" y="57" font-size="7" fill="rgba(0,194,124,.7)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="bold">S</text>
+                    </svg>
+                  </div>
+                </div>
+                <!-- GLOBE PANEL -->
+                <div class="globe-panel">
+                  <div class="globe-canvas-wrap">
+                    <canvas id="mini-globe"></canvas>
+                  </div>
+                  <div class="globe-info">
+                    <div class="gi-head">
+                      <div class="gi-title">Live sales</div>
+                      <div class="gi-count" id="globe-sales-count">0</div>
+                      <div class="gi-sub">transactions today</div>
+                    </div>
+                    <div class="gi-live" id="gi-live-list">
+                      <div class="gi-live-row"><span class="gi-live-city">Berlin</span><span class="gi-live-amt">$149</span></div>
+                      <div class="gi-live-row"><span class="gi-live-city">Montréal</span><span class="gi-live-amt">$89</span></div>
+                      <div class="gi-live-row"><span class="gi-live-city">Tokyo</span><span class="gi-live-amt">$299</span></div>
+                    </div>
+                    <div class="gi-countries">
+                      <div class="gi-countries-t">Active countries</div>
+                      <div class="gi-country"><span class="gi-country-dot"></span><span class="gi-country-name">🇩🇪 Germany</span></div>
+                      <div class="gi-country"><span class="gi-country-dot"></span><span class="gi-country-name">🇨🇦 Canada</span></div>
+                      <div class="gi-country"><span class="gi-country-dot"></span><span class="gi-country-name">🇯🇵 Japan</span></div>
+                      <div class="gi-country"><span class="gi-country-dot"></span><span class="gi-country-name">🇫🇷 France</span></div>
+                      <div class="gi-country"><span class="gi-country-dot"></span><span class="gi-country-name">🇺🇸 USA</span></div>
+                      <div class="gi-country"><span class="gi-country-dot" style="opacity:.3"></span><span class="gi-country-name" style="opacity:.3">🇦🇺 Australia</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS STRIP -->
+<div class="tools-strip rv">
+  <span class="tools-label">Works with</span>
+  <div id="tool-tags"></div>
+  <span class="tools-label" style="color:var(--ink2);">and any HTML output.</span>
+</div>
+
+<!-- HOW -->
+<section class="how rv" id="how">
+  <div class="how-in">
+    <div class="how-head">
+      <div>
+        <div class="sec-ey">How it works</div>
+        <h2 class="sec-h">Four steps to revenue.</h2>
+      </div>
+      <p class="how-p">The simplest path from AI-built idea to commerce. No backend, no devops, no compromises.</p>
+    </div>
+    <div class="how-cols">
+      <div class="hc">
+        <div class="hc-n">01</div>
+        <div class="hc-ic"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <div class="hc-t">Build with AI</div>
+        <div class="hc-d">Design your site with Claude, Cursor or Bolt. Any HTML output works.</div>
+        <div class="hc-pills"><span class="hc-pill">Claude</span><span class="hc-pill">Cursor</span><span class="hc-pill">Bolt</span></div>
+      </div>
+      <div class="hc">
+        <div class="hc-n">02</div>
+        <div class="hc-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="hc-t">Paste into Vibby</div>
+        <div class="hc-d">Commerce injects automatically — products, checkout, emails. Zero code.</div>
+        <div class="hc-pills"><span class="hc-pill">1 click</span><span class="hc-pill">No backend</span></div>
+      </div>
+      <div class="hc">
+        <div class="hc-n">03</div>
+        <div class="hc-ic"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="hc-t">Go live anywhere</div>
+        <div class="hc-d">Drop on Netlify, GitHub Pages, or Vercel. Live in 60 seconds.</div>
+        <div class="hc-pills"><span class="hc-pill">Netlify</span><span class="hc-pill">Vercel</span><span class="hc-pill">GitHub</span></div>
+      </div>
+      <div class="hc">
+        <div class="hc-n">04</div>
+        <div class="hc-ic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="hc-t">Manage everything</div>
+        <div class="hc-d">Orders, customers, analytics. A full commerce backend, yours.</div>
+        <div class="hc-pills"><span class="hc-pill">Orders</span><span class="hc-pill">Customers</span><span class="hc-pill">Analytics</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="ba-sec rv">
+  <div class="ba-in">
+    <div style="text-align:center;margin-bottom:0;">
+      <div class="sec-ey" style="color:rgba(255,255,255,.3);">The difference</div>
+      <h2 class="sec-h" style="color:#fff;font-size:clamp(28px,4vw,48px);">Your design.<br><span style="color:var(--g);">Your rules.</span></h2>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-col">
+        <div class="ba-hd"><span class="ba-tag b">Without Vibby</span></div>
+        <div class="ba-body">
+          <div class="ba-step"><div class="ba-ic">🎨</div><div><div class="ba-t">Build with AI — beautiful site</div><div class="ba-s">Claude, Cursor, Bolt</div></div></div>
+          <div class="ba-step"><div class="ba-ic">😩</div><div><div class="ba-t">Want to add a buy button</div><div class="ba-s">Stripe docs, webhooks, Node.js...</div></div></div>
+          <div class="ba-step"><div class="ba-ic">😤</div><div><div class="ba-t">Force your design into Shopify</div><div class="ba-s">Their templates. Their constraints.</div></div></div>
+        </div>
+      </div>
+      <div class="ba-arr"><div class="ba-arr-ic"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+      <div class="ba-col">
+        <div class="ba-hd"><span class="ba-tag a">With Vibby</span></div>
+        <div class="ba-body">
+          <div class="ba-step"><div class="ba-ic">🎨</div><div><div class="ba-t">Build with AI — beautiful site</div><div class="ba-s">Claude, Cursor, Bolt</div></div></div>
+          <div class="ba-step"><div class="ba-ic">⚡</div><div><div class="ba-t">Paste into Vibby — commerce injects</div><div class="ba-s">Products, checkout, emails. Done.</div></div></div>
+          <div class="ba-step"><div class="ba-ic">💰</div><div><div class="ba-t">Your design. Your commerce. Yours.</div><div class="ba-s">Live in 60 seconds, anywhere.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission-sec rv">
+  <div class="mission-in">
+    <div class="sec-ey" style="text-align:center;">Why Vibby exists</div>
+    <h2 class="mission-h">Millions of websites<br>are built with AI.<br>Commerce wasn't built<br>for them. <em>Vibby is.</em></h2>
+    <p class="mission-p">Shopify was built for a world where you hire developers. Vibby was built for a world where you build with AI in an afternoon — and sell by evening.</p>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="cmp-sec rv" id="compare">
+  <div class="cmp-in">
+    <div class="sec-ey">Vibby vs Shopify</div>
+    <h2 class="sec-h" style="font-size:clamp(28px,4vw,48px);">Two philosophies.</h2>
+    <div class="cmp-philo">
+      <div class="cp">
+        <div class="cp-tag">Shopify</div>
+        <div class="cp-h">You build inside their system.</div>
+        <div class="cp-p">Their templates. Their checkout. Their constraints. You adapt your vision to fit their box.</div>
+      </div>
+      <div class="cp vibby">
+        <div class="cp-tag">✦ Vibby</div>
+        <div class="cp-h">Your system. Your design. Your rules.</div>
+        <div class="cp-p">Build exactly what you imagine with AI. Commerce is the layer — not the constraint.</div>
+      </div>
+    </div>
+    <div class="cmp-t">
+      <div class="cmp-th"><div></div><div class="hi">✦ Vibby</div><div>Shopify</div></div>
+      <div class="cmp-tr"><div>Design freedom</div><div class="yes">Unlimited</div><div class="nope">Templates</div></div>
+      <div class="cmp-tr"><div>Setup time</div><div class="yes">60 seconds</div><div class="nope">Hours</div></div>
+      <div class="cmp-tr"><div>Works with AI tools</div><div class="yes">Native</div><div class="nope">No</div></div>
+      <div class="cmp-tr"><div>Backend required</div><div class="yes">None</div><div class="nope">Yes</div></div>
+      <div class="cmp-tr"><div>Starting price</div><div class="yes">Free</div><div class="nope">$39/mo</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote rv">
+  <div class="q-in">
+    <div class="q-t">"Built my store in Claude one afternoon. Vibby made it sellable by evening. <em>Never touched a template.</em>"</div>
+    <div class="q-a">— Alex T., indie developer</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-in rv">
+    <h2>Your design.<br><span class="g">Your commerce.</span></h2>
+    <p>Free to start. No backend. Just paste your HTML and sell.</p>
+    <a href="vibby.html" class="btn btn-g btn-xl">Launch your store for free →</a>
+    <div class="cta-fine">Free · No credit card · Works with Claude, Cursor, Bolt and more</div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fl"><div class="flic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>vibby</div>
+    <div class="fc_">© 2026 Vibby</div>
+    <div class="fls"><a href="#">Privacy</a><a href="#">Terms</a><a href="vibby.html">App →</a></div>
+  </div>
+</footer>
+
+<script>
+// ── LOGO DATA ──
+const tools=[
+  {name:'Claude',c:'#D97757',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M7 16.5l5-9 5 9M8.5 13.5h7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`},
+  {name:'Cursor',c:'#1a1a1a',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M12 3L3 21h18L12 3z" opacity=".9"/><path d="M12 10l-4 11h8L12 10z" fill="#1a1a1a"/></svg>`},
+  {name:'Bolt',c:'#7c3aed',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`},
+  {name:'Lovable',c:'#f43f5e',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 18s-7-4.5-7-9a4 4 0 018 0 4 4 0 018 0c0 4.5-7 9-7 9z" fill="white"/></svg>`},
+  {name:'ChatGPT',c:'#10a37f',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9" stroke="#10a37f" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`},
+  {name:'Replit',c:'#3b82f6',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M2 2h9v7H2V2zm0 7h9v6H2V9zm0 6h9v7H2v-7zm10-13h10v6H12V2zm0 7h10v6H12V9z"/></svg>`},
+];
+
+// Tool tags strip
+const toolTagsEl = document.getElementById('tool-tags');
+if(toolTagsEl){
+  toolTagsEl.style.cssText='display:flex;gap:6px;flex-wrap:wrap;justify-content:center;';
+  toolTagsEl.innerHTML = tools.map(t=>`<div class="tool-tag"><div class="tool-ic" style="background:${t.c};">${t.svg}</div>${t.name}</div>`).join('');
+}
+
+// ── COUNT UPS ──
+function cu(el,to,pre,dur){
+  if(!el)return;
+  const from=Math.round(to*.5),t0=performance.now();
+  const f=n=>{const p=Math.min((n-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=pre+Math.round(from+(to-from)*e).toLocaleString('en-US');if(p<1)requestAnimationFrame(f);};
+  requestAnimationFrame(f);
+}
+setTimeout(()=>{
+  cu(document.getElementById('m-rev'),12480,'$',2000);
+  cu(document.getElementById('m-ord'),143,'',1500);
+  cu(document.getElementById('m-cust'),98,'',1300);
+},600);
+
+// ── LIVE SALES ──
+const sales=[
+  {city:'Berlin',product:'Design System',amt:149,av:'BL',c:'#7c3aed'},
+  {city:'Montréal',product:'AI Template',amt:89,av:'MT',c:'#0891b2'},
+  {city:'Tokyo',product:'Commerce Kit',amt:299,av:'TK',c:'#d97706'},
+  {city:'Paris',product:'UI Bundle',amt:59,av:'PA',c:'#dc2626'},
+  {city:'New York',product:'Starter Pack',amt:129,av:'NY',c:'#9333ea'},
+  {city:'Sydney',product:'Pro Plan',amt:49,av:'SY',c:'#0369a1'},
+  {city:'London',product:'Full Stack Kit',amt:199,av:'LN',c:'#16a34a'},
+  {city:'Singapore',product:'API Access',amt:79,av:'SG',c:'#7c3aed'},
+];
+let si=0, todayRev=0, todayOrd=0;
+const dfList=document.getElementById('df-list');
+const sRevEl=document.getElementById('s-rev');
+const sOrdEl=document.getElementById('s-ord');
+const oList=document.getElementById('o-list');
+const oColors=['#7c3aed','#0891b2','#d97706','#dc2626','#9333ea','#0369a1','#16a34a'];
+const oNames=['Marie L.','Jean B.','Sophie C.','Thomas K.','Alex M.','Nina P.','Rémi B.'];
+const oProds=['Digital course','UI Kit Pro','Consulting','Templates pack','Design system','Starter kit','Icon pack'];
+const oAmts=[97,49,299,67,149,39,89];
+let oIdx=0;
+
+// init feed
+for(let i=0;i<6;i++){
+  const s=sales[i%sales.length];
+  if(dfList){
+    const el=document.createElement('div');
+    el.className='df-item';
+    el.innerHTML=`<div class="df-row1"><span class="df-city">${s.city}</span><span class="df-amt">+$${s.amt}</span></div><div class="df-prod">${s.product}</div><div class="df-time">${(i+1)*2} min ago</div>`;
+    dfList.appendChild(el);
+  }
+}
+
+function addSale(){
+  const s=sales[si++%sales.length];
+  todayRev+=s.amt;
+  todayOrd++;
+  if(sRevEl) sRevEl.textContent='$'+todayRev.toLocaleString('en-US');
+  if(sOrdEl) sOrdEl.textContent=todayOrd;
+
+  // feed
+  if(dfList){
+    const el=document.createElement('div');
+    el.className='df-item new';
+    const now=new Date();
+    el.innerHTML=`<div class="df-row1"><span class="df-city">${s.city}</span><span class="df-amt">+$${s.amt}</span></div><div class="df-prod">${s.product}</div><div class="df-time">just now</div>`;
+    dfList.insertBefore(el,dfList.firstChild);
+    // update older times
+    dfList.querySelectorAll('.df-time').forEach((t,i)=>{if(i>0)t.textContent=i*2+' min ago';});
+    if(dfList.children.length>7) dfList.lastChild.remove();
+  }
+
+  // recent orders
+  if(oList){
+    const ci=oIdx%oColors.length;
+    const row=document.createElement('div');
+    row.className='o-r o-new';
+    const init=oNames[ci].split(' ').map(n=>n[0]).join('');
+    row.innerHTML=`<div class="o-av" style="background:${oColors[ci]};">${init}</div><div class="o-info"><div class="o-name">${oNames[ci]}</div><div class="o-prod">${oProds[ci]}</div></div><div class="o-amt">$${oAmts[ci]}</div><div class="o-bdg">Paid</div>`;
+    oList.insertBefore(row,oList.firstChild);
+    if(oList.children.length>4) oList.lastChild.remove();
+    oIdx++;
+  }
+
+  // globe dot
+  if(window.addGlobeDot) window.addGlobeDot(s.city, s.amt);
+}
+
+// kickstart
+setTimeout(addSale,2000);
+setInterval(addSale,3400);
+
+// ── GLOBE ──
+(function(){
+  const gc = document.getElementById('mini-globe');
+  if(!gc) return;
+  const ctx = gc.getContext('2d');
+  let W=0, H=0, CX=0, CY=0, R=0;
+  let rot = 0;
+  const dots = [];
+  let salesCount = 0;
+  const scEl = document.getElementById('globe-sales-count');
+
+  function resize(){
+    const wrap = gc.parentElement;
+    const panel = wrap ? wrap.parentElement : null;
+    const pw = wrap ? wrap.offsetWidth : 0;
+    const ph = panel ? panel.offsetHeight : 0;
+    if(!pw || !ph) return;
+    W = gc.width  = pw;
+    H = gc.height = ph;
+    CX = W/2; CY = H/2;
+    R  = Math.min(W, H) / 2 - 1;
+  }
+
+  function project(lat, lon){
+    const phi   = (90 - lat) * Math.PI / 180;
+    const theta = (lon + 180) * Math.PI / 180;
+    const x = -Math.sin(phi) * Math.cos(theta);
+    const y =  Math.cos(phi);
+    const z =  Math.sin(phi) * Math.sin(theta);
+    const cr = Math.cos(rot), sr = Math.sin(rot);
+    const rx = x*cr - z*sr, rz = x*sr + z*cr;
+    const sc = (rz + 2) / 3;
+    return { x: CX + rx*R*sc, y: CY - y*R*sc, vis: rz > -0.1 };
+  }
+
+  const continents = [
+    [[70,-140],[74,-100],[72,-80],[65,-65],[50,-55],[44,-66],[40,-74],[35,-77],[30,-81],[25,-80],[20,-87],[15,-85],[8,-77],[10,-75],[20,-90],[30,-94],[25,-97],[20,-104],[15,-92],[8,-77],[35,-120],[38,-123],[46,-124],[50,-125],[57,-136],[62,-140],[70,-140]],
+    [[10,-62],[10,-75],[5,-77],[0,-80],[-5,-81],[-15,-75],[-20,-70],[-30,-71],[-40,-73],[-55,-68],[-55,-64],[-40,-62],[-35,-58],[-30,-50],[-20,-40],[-10,-37],[-5,-35],[0,-50],[5,-53],[8,-60],[10,-62]],
+    [[72,28],[70,25],[68,18],[65,13],[62,5],[58,5],[54,0],[51,2],[50,8],[47,8],[44,8],[44,3],[40,3],[38,-9],[36,-6],[36,3],[44,8],[48,5],[50,2],[54,8],[58,25],[65,25],[68,30],[72,28]],
+    [[35,-5],[33,10],[32,25],[22,37],[12,45],[8,42],[2,41],[-5,40],[-12,40],[-20,35],[-27,33],[-35,27],[-35,20],[-30,17],[-20,13],[-10,14],[-5,10],[0,9],[5,-5],[10,-17],[20,-17],[30,-10],[35,-5]],
+    [[72,28],[72,68],[70,100],[65,140],[55,160],[50,140],[45,135],[40,130],[35,120],[25,120],[20,110],[10,105],[5,103],[1,104],[5,100],[15,100],[20,100],[25,97],[22,88],[20,87],[10,80],[8,77],[10,76],[22,68],[25,62],[28,57],[22,57],[12,45],[22,37],[32,25],[40,30],[50,36],[60,56],[72,68],[72,28]],
+    [[-15,128],[-12,136],[-15,145],[-20,148],[-27,153],[-35,151],[-38,145],[-38,140],[-35,138],[-33,115],[-22,114],[-18,122],[-15,128]],
+    [[42,142],[38,141],[35,137],[34,131],[36,136],[40,140],[42,142]],
+  ];
+
+  const cityCoords = {
+    'Berlin':[52.5,13.4],'Montréal':[45.5,-73.6],'Tokyo':[35.7,139.7],
+    'Paris':[48.8,2.3],'New York':[40.7,-74],'Sydney':[-33.8,151.2],
+    'London':[51.5,-0.1],'Singapore':[1.3,103.8],'Dubai':[25.2,55.3],
+  };
+
+  window.addGlobeDot = function(city, amt){
+    const c = cityCoords[city] || [20, 0];
+    dots.push({ lat:c[0], lon:c[1], born:Date.now(), city, amt });
+    salesCount++;
+    if(scEl) scEl.textContent = salesCount;
+    const liveList = document.getElementById('gi-live-list');
+    if(liveList && amt){
+      const row = document.createElement('div');
+      row.className = 'gi-live-row gi-live-new';
+      row.innerHTML = `<span class="gi-live-city">${city}</span><span class="gi-live-amt">$${amt}</span>`;
+      liveList.insertBefore(row, liveList.firstChild);
+      if(liveList.children.length > 3) liveList.lastChild.remove();
+    }
+  };
+
+  function draw(){
+    // Safety guard — never draw if dimensions invalid
+    if(!(R > 0) || !isFinite(CX) || !isFinite(CY)) return;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Base sphere
+    const g0 = ctx.createRadialGradient(CX - R*.15, CY - R*.15, 1, CX, CY, R);
+    g0.addColorStop(0, '#162b1e');
+    g0.addColorStop(.7, '#0e1c14');
+    g0.addColorStop(1, '#090e0b');
+    ctx.fillStyle = g0;
+    ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI*2); ctx.fill();
+
+    // Clip to sphere
+    ctx.save();
+    ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI*2); ctx.clip();
+
+    // Grid
+    ctx.lineWidth = .6;
+    for(let lon = -180; lon < 180; lon += 30){
+      ctx.beginPath(); ctx.strokeStyle = 'rgba(0,194,124,.08)'; let f=true;
+      for(let lat = -90; lat <= 90; lat += 5){
+        const p = project(lat, lon);
+        if(!p.vis){ f=true; continue; }
+        f ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y); f=false;
+      } ctx.stroke();
+    }
+    for(let lat = -60; lat <= 60; lat += 30){
+      ctx.beginPath(); ctx.strokeStyle = 'rgba(0,194,124,.06)'; let f=true;
+      for(let lon = -180; lon <= 180; lon += 5){
+        const p = project(lat, lon);
+        if(!p.vis){ f=true; continue; }
+        f ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y); f=false;
+      } ctx.stroke();
+    }
+
+    // Continents
+    continents.forEach(poly => {
+      ctx.beginPath(); let f=true;
+      poly.forEach(([la,lo]) => {
+        const p = project(la, lo);
+        if(!p.vis){ f=true; return; }
+        f ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y); f=false;
+      });
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(0,194,124,.16)'; ctx.fill();
+      ctx.strokeStyle = 'rgba(0,194,124,.32)'; ctx.lineWidth = .8; ctx.stroke();
+    });
+
+    // Sale dots
+    const now = Date.now();
+    for(let i = dots.length-1; i >= 0; i--){
+      const d = dots[i];
+      const age = (now - d.born)/1000;
+      if(age > 6){ dots.splice(i,1); continue; }
+      const p = project(d.lat, d.lon);
+      if(!p.vis) continue;
+      const a = Math.max(0, 1 - age/6);
+      ctx.beginPath(); ctx.arc(p.x,p.y, 3+(age%1)*7*a, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(0,255,150,${a*.4})`; ctx.lineWidth=1.2; ctx.stroke();
+      ctx.beginPath(); ctx.arc(p.x,p.y,3.5,0,Math.PI*2);
+      ctx.fillStyle = `rgba(0,240,140,${a})`; ctx.fill();
+      ctx.beginPath(); ctx.arc(p.x,p.y,1.5,0,Math.PI*2);
+      ctx.fillStyle = `rgba(255,255,255,${a*.9})`; ctx.fill();
+      // label
+      if(a > .6 && d.city){
+        ctx.font='600 8px Inter,sans-serif';
+        ctx.fillStyle=`rgba(0,230,140,${a*.9})`;
+        ctx.fillText(d.city, Math.min(p.x+7, W-60), p.y-3);
+      }
+    }
+    ctx.restore();
+  }
+
+  function tick(){ rot += .0022; draw(); requestAnimationFrame(tick); }
+
+  function init(){
+    resize();
+    tick();
+    window.addEventListener('resize', resize);
+  }
+
+  if(document.readyState === 'complete'){ init(); }
+  else { window.addEventListener('load', init); }
+})();
+
+// ── LOGO DATA ──
+// ── REVEAL ──
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.07});
+document.querySelectorAll('.rv,.hc,.cmp-tr,.ba-step').forEach(el=>{
+  if(!el.classList.contains('rv'))el.classList.add('rv');
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
