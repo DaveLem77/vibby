@@ -3,8 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vibby — Build with AI. Sell for real.</title>
+<title>Vibby — Shopify-Level Commerce for AI-Built Websites</title>
+<meta name="description" content="Vibby turns any AI-built website into a full commerce store in 60 seconds. Add orders, products, customers and analytics to sites built with Claude, Cursor, Bolt or Lovable. No backend, no templates, no code.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vibby.io/">
+<meta property="og:title" content="Vibby — Shopify-Level Commerce for AI-Built Websites">
+<meta property="og:description" content="Turn your AI-built website into a full store in 60 seconds. No backend required.">
+<meta property="og:image" content="https://vibby.io/og-image.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2300C27C'/><path d='M8 10L16 22L24 10' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>">
+<meta name="theme-color" content="#00C27C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Vibby","url":"https://vibby.io","description":"Commerce platform for AI-built websites","applicationCategory":"BusinessApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -36,147 +49,120 @@ a{text-decoration:none;color:inherit;}
 .h-a{opacity:0;transform:translateY(22px);animation:hIn .7s cubic-bezier(.16,1,.3,1) forwards;}
 .d1{animation-delay:.05s;}.d2{animation-delay:.16s;}.d3{animation-delay:.27s;}.d4{animation-delay:.37s;}.d5{animation-delay:.46s;}.d6{animation-delay:.53s;}
 @keyframes hIn{to{opacity:1;transform:none;}}
-
 .chip{display:inline-flex;align-items:center;gap:6px;background:rgba(0,194,124,.08);border:1px solid rgba(0,194,124,.2);border-radius:100px;padding:5px 13px 5px 9px;font-size:12px;font-weight:600;color:var(--gd);margin-bottom:22px;}
 .chip-dot{width:6px;height:6px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
 @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(0,194,124,.55);}50%{box-shadow:0 0 0 5px rgba(0,194,124,0);}}
-
 h1{font-size:clamp(44px,7.5vw,96px);font-weight:900;letter-spacing:-4px;line-height:.92;color:var(--ink);margin-bottom:20px;}
 h1 .g{background:linear-gradient(135deg,#009960,#00C27C 45%,#22d68d);-webkit-background-clip:text;background-clip:text;color:transparent;}
-
 .hero-sub{font-size:clamp(15px,1.7vw,18px);color:var(--ink2);line-height:1.6;max-width:460px;margin:0 auto 32px;}
 .hero-sub strong{color:var(--ink);font-weight:600;}
 .hero-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
-.hero-fine{font-size:12px;color:var(--ink3);margin-bottom:52px;}
+.hero-fine{font-size:12px;color:var(--ink3);margin-bottom:48px;}
 
-/* ── DASHBOARD ── */
-.dash-wrap{max-width:960px;margin:0 auto;}
-.dash{background:#09110a;border-radius:18px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.05),0 20px 70px rgba(0,0,0,.22),0 60px 120px rgba(0,0,0,.12);}
+/* ── COMMERCE SCENE ── */
+.scene{
+  max-width:900px;margin:0 auto;
+  position:relative;
+  background:#09110a;
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 2px 0 rgba(255,255,255,.06) inset,0 24px 80px rgba(0,0,0,.2),0 60px 120px rgba(0,0,0,.1);
+}
 
-/* titlebar */
-.d-bar{height:38px;background:#0d1510;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;padding:0 14px;gap:6px;}
-.d-dot{width:10px;height:10px;border-radius:50%;}
-.d-url{flex:1;max-width:220px;margin:0 auto;height:21px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:5px;display:flex;align-items:center;padding:0 9px;gap:5px;}
-.d-url-g{width:6px;height:6px;border-radius:50%;background:var(--g);}
-.d-url-t{font-size:10px;color:rgba(255,255,255,.3);font-family:monospace;}
-.d-live{display:flex;align-items:center;gap:4px;background:rgba(0,194,124,.1);border:1px solid rgba(0,194,124,.2);border-radius:100px;padding:2px 9px;margin-left:auto;}
-.d-ld{width:5px;height:5px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
-.d-lt{font-size:10px;font-weight:600;color:#4ade80;}
+/* top bar */
+.scene-bar{
+  height:40px;background:#0e1710;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;padding:0 16px;gap:6px;
+}
+.sc-dots{display:flex;gap:5px;}
+.sc-dot{width:10px;height:10px;border-radius:50%;}
+.sc-url{flex:1;max-width:220px;margin:0 auto;height:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:5px;display:flex;align-items:center;padding:0 9px;gap:5px;}
+.sc-url-g{width:6px;height:6px;border-radius:50%;background:var(--g);}
+.sc-url-t{font-size:10px;color:rgba(255,255,255,.3);font-family:monospace;}
+.sc-live{display:flex;align-items:center;gap:4px;background:rgba(0,194,124,.1);border:1px solid rgba(0,194,124,.2);border-radius:100px;padding:3px 10px;margin-left:auto;}
+.sc-ld{width:5px;height:5px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
+.sc-lt{font-size:10px;font-weight:600;color:#4ade80;}
 
-/* layout */
-.d-layout{display:grid;grid-template-columns:148px 1fr;height:560px;}
+/* main layout: globe left + stats right */
+.scene-body{display:grid;grid-template-columns:1fr 220px;min-height:360px;}
 
-/* sidebar */
-.d-side{background:#0d1510;border-right:1px solid rgba(255,255,255,.06);padding:14px 10px;display:flex;flex-direction:column;}
-.ds-logo{display:flex;align-items:center;gap:7px;padding:6px 8px;margin-bottom:12px;}
-.ds-logo-ic{width:20px;height:20px;background:var(--g);border-radius:5px;display:grid;place-items:center;}
-.ds-logo-ic svg{width:10px;height:10px;}
-.ds-logo-t{font-size:13px;font-weight:800;color:#fff;}
-.ds-nav{display:flex;flex-direction:column;gap:1px;}
-.ds-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;font-size:11px;font-weight:500;color:rgba(255,255,255,.38);}
-.ds-item.on{background:rgba(255,255,255,.06);color:rgba(255,255,255,.88);}
-.ds-item svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0;}
-.ds-bottom{margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:6px;}
-.ds-stat{padding:8px;}
-.ds-stat-l{font-size:8px;font-weight:700;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
-.ds-stat-v{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.5px;}
-.ds-stat-v.g{color:var(--g);}
-.ds-stat-t{font-size:9px;color:var(--g);font-weight:600;margin-top:2px;}
+/* globe area */
+.scene-globe{position:relative;overflow:hidden;background:#09110a;}
+.scene-globe canvas{display:block;width:100%;height:100%;}
 
-/* main */
-.d-main{display:flex;flex-direction:column;overflow:hidden;background:#0a0f0b;}
-.d-top{height:42px;background:#0d1510;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;padding:0 18px;gap:10px;flex-shrink:0;}
-.d-top-t{font-size:13px;font-weight:700;color:rgba(255,255,255,.8);flex:1;}
-.d-period{font-size:11px;color:rgba(255,255,255,.28);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:5px;padding:3px 9px;}
-.d-body{flex:1;padding:14px;overflow:hidden;display:flex;flex-direction:column;gap:10px;}
-.d-mid-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+/* toasts over globe */
+.toast-layer{position:absolute;inset:0;pointer-events:none;}
+.s-toast{
+  position:absolute;
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(9,17,10,.88);
+  border:1px solid rgba(0,194,124,.22);
+  border-radius:10px;padding:8px 14px;
+  backdrop-filter:blur(10px);
+  animation:tIn .4s cubic-bezier(.16,1,.3,1) forwards;
+  white-space:nowrap;
+}
+@keyframes tIn{from{opacity:0;transform:translateY(8px) scale(.95);}to{opacity:1;transform:none;}}
+@keyframes tOut{to{opacity:0;transform:scale(.95);}}
+.st-flag{font-size:14px;line-height:1;}
+.st-city{font-size:12px;font-weight:600;color:rgba(255,255,255,.75);}
+.st-amt{font-size:13px;font-weight:800;color:var(--g);}
 
-/* metrics */
-.mets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.met{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 13px;}
-.met.feat{border-top:1.5px solid var(--g);}
-.met-l{font-size:8px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
-.met-v{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.6px;line-height:1.1;}
-.met-v.g{color:var(--g);}
-.met-t{font-size:9px;font-weight:600;color:var(--g);margin-top:3px;}
-.met-t.n{color:rgba(255,255,255,.2);}
+/* stats panel right */
+.scene-stats{
+  border-left:1px solid rgba(255,255,255,.07);
+  display:flex;flex-direction:column;
+}
+.ss-head{
+  padding:16px 18px 12px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  flex-shrink:0;
+}
+.ss-head-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
+.ss-rev{font-size:32px;font-weight:800;color:var(--g);letter-spacing:-1.5px;line-height:1;}
+.ss-rev-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:4px;}
 
-/* legacy - unused */
-.d-grid{display:none;}
+/* stat rows */
+.ss-stats{padding:14px 18px;display:flex;flex-direction:column;gap:14px;flex:1;}
+.ss-stat{}
+.ss-stat-l{font-size:9px;font-weight:700;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.ss-stat-v{font-size:20px;font-weight:800;color:#fff;letter-spacing:-.6px;line-height:1;}
+.ss-stat-t{font-size:10px;color:rgba(255,255,255,.25);margin-top:3px;}
+.ss-stat-t.up{color:rgba(0,194,124,.7);}
 
-/* chart */
-.chart-c{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;overflow:hidden;}
-.cc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;flex-shrink:0;}
-.cc-l{font-size:8px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;}
-.cc-v{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.6px;line-height:1;}
-.cc-up{font-size:9px;font-weight:600;color:var(--g);margin-top:2px;}
-.cc-svg{flex:1;min-height:0;}
-.cc-svg svg{width:100%;height:100%;display:block;}
+/* live feed */
+.ss-feed{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:12px 18px;flex-shrink:0;
+}
+.ss-feed-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.ss-feed-dot{width:5px;height:5px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
+.ss-feed-item{display:flex;align-items:center;justify-content:space-between;padding:4px 0;}
+.ss-feed-city{font-size:11px;font-weight:500;color:rgba(255,255,255,.5);}
+.ss-feed-amt{font-size:11px;font-weight:700;color:rgba(0,194,124,.8);}
+.ss-feed-item.new-item{animation:tIn .3s ease;}
 
-/* recent orders */
-.orders-c{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;overflow:hidden;}
-.oc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-shrink:0;}
-.oc-l{font-size:8px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;}
-.oc-live{display:flex;align-items:center;gap:4px;font-size:8px;font-weight:600;color:#4ade80;}
-.oc-ld{width:4px;height:4px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
-.o-list{flex:1;overflow:hidden;display:flex;flex-direction:column;}
-.o-r{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);}
-.o-r:last-child{border-bottom:none;}
-.o-av{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:8px;font-weight:800;color:#fff;flex-shrink:0;}
-.o-info{flex:1;min-width:0;}
-.o-name{font-size:11px;font-weight:600;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.o-prod{font-size:9px;color:rgba(255,255,255,.28);margin-top:1px;}
-.o-amt{font-size:11px;font-weight:800;color:#fff;flex-shrink:0;}
-.o-bdg{font-size:8px;font-weight:700;background:rgba(0,194,124,.12);color:#4ade80;border:1px solid rgba(0,194,124,.2);padding:1px 6px;border-radius:100px;margin-left:4px;flex-shrink:0;}
-.o-new{animation:oIn .35s cubic-bezier(.16,1,.3,1);}
-@keyframes oIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
-
-/* bottom panel: chart + globe side by side */
-.d-bottom-row{display:grid;grid-template-columns:1fr 280px;gap:10px;flex:1;min-height:0;}
-
-/* globe panel */
-.globe-panel{background:#090e0b;border:1px solid rgba(255,255,255,.09);border-radius:8px;display:grid;grid-template-columns:1fr 130px;overflow:hidden;position:relative;min-height:160px;}
-.globe-canvas-wrap{position:relative;background:#090e0b;overflow:hidden;min-width:0;align-self:stretch;}
-.globe-canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
-/* right info panel */
-.globe-info{border-left:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;overflow:hidden;}
-.gi-head{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;}
-.gi-title{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.5px;}
-.gi-count{font-size:18px;font-weight:800;color:var(--g);letter-spacing:-.5px;margin-top:2px;line-height:1;}
-.gi-sub{font-size:9px;color:rgba(255,255,255,.25);margin-top:2px;}
-.gi-live{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;}
-.gi-live-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
-.gi-live-row:last-child{margin-bottom:0;}
-.gi-live-city{font-size:10px;font-weight:600;color:rgba(255,255,255,.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px;}
-.gi-live-amt{font-size:10px;font-weight:800;color:var(--g);flex-shrink:0;}
-.gi-live-new{animation:dfIn .35s cubic-bezier(.16,1,.3,1);}
-@keyframes dfIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
-/* countries list */
-.gi-countries{flex:1;padding:8px 12px;overflow:hidden;}
-.gi-countries-t{font-size:8px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
-.gi-country{display:flex;align-items:center;gap:5px;margin-bottom:5px;}
-.gi-country-dot{width:5px;height:5px;border-radius:50%;background:var(--g);opacity:.6;flex-shrink:0;}
-.gi-country-name{font-size:9px;font-weight:500;color:rgba(255,255,255,.4);}
-/* gp-head stays for compat */
-.gp-head{display:none;}
-.gp-feed{display:none;}
-
-/* ── TOOLS STRIP ── */
-.tools-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;}
+/* SECTIONS */
+.tools-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;}
 .tools-label{font-size:12px;font-weight:500;color:var(--ink3);white-space:nowrap;}
 .tool-tag{display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--line);border-radius:100px;padding:5px 13px 5px 7px;font-size:12px;font-weight:600;color:var(--ink2);white-space:nowrap;transition:border-color .12s;}
 .tool-tag:hover{border-color:var(--ink3);}
 .tool-ic{width:20px;height:20px;border-radius:5px;display:grid;place-items:center;flex-shrink:0;}
 
-/* ── HOW ── */
-.how{padding:80px 24px;border-bottom:1px solid var(--line);}
-.how-in{max-width:960px;margin:0 auto;}
+.sec{padding:80px 24px;border-bottom:1px solid var(--line);}
+.gray{background:var(--bg);}
+.dark-sec{background:var(--ink);color:#fff;padding:80px 24px;border-top:1px solid rgba(255,255,255,.06);}
+.sec-in{max-width:1000px;margin:0 auto;}
+.sec-in-sm{max-width:700px;margin:0 auto;}
 .sec-ey{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
+.dark-sec .sec-ey{color:rgba(255,255,255,.3);}
 .sec-h{font-size:clamp(30px,4.5vw,52px);font-weight:900;letter-spacing:-2px;line-height:.97;}
+
+/* HOW */
 .how-head{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:end;margin-bottom:36px;}
-.how-p{font-size:15px;color:var(--ink2);line-height:1.65;padding-bottom:2px;}
+.how-p{font-size:15px;color:var(--ink2);line-height:1.65;}
 .how-cols{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
-.hc{background:var(--w);padding:26px 22px;border-right:1px solid var(--line);position:relative;}
+.hc{background:var(--w);padding:26px 22px;border-right:1px solid var(--line);transition:background .14s;}
 .hc:last-child{border-right:none;}
 .hc:hover{background:var(--bg);}
 .hc-n{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px;display:flex;align-items:center;gap:7px;}
@@ -188,10 +174,8 @@ h1 .g{background:linear-gradient(135deg,#009960,#00C27C 45%,#22d68d);-webkit-bac
 .hc-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:12px;}
 .hc-pill{font-size:10px;font-weight:500;color:var(--ink2);background:var(--bg);border:1px solid var(--line);border-radius:100px;padding:2px 8px;}
 
-/* ── BEFORE/AFTER ── */
-.ba-sec{padding:80px 24px;border-bottom:1px solid var(--line);background:var(--ink);}
-.ba-in{max-width:880px;margin:0 auto;}
-.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:center;margin-top:40px;}
+/* BEFORE/AFTER */
+.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-top:40px;}
 .ba-col{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;}
 .ba-hd{padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.07);}
 .ba-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:3px 9px;border-radius:100px;}
@@ -204,25 +188,21 @@ h1 .g{background:linear-gradient(135deg,#009960,#00C27C 45%,#22d68d);-webkit-bac
 .ba-t{font-size:12px;font-weight:500;color:rgba(255,255,255,.75);line-height:1.4;}
 .ba-s{font-size:10px;color:rgba(255,255,255,.28);margin-top:2px;}
 .ba-arr{padding:0 24px;}
-.ba-arr-ic{width:44px;height:44px;background:var(--g);border-radius:50%;display:grid;place-items:center;box-shadow:0 0 24px rgba(0,194,124,.35);}
-.ba-arr-ic svg{width:18px;height:18px;}
+.ba-arr-ic{width:44px;height:44px;background:var(--g);border-radius:50%;display:grid;place-items:center;box-shadow:0 0 24px rgba(0,194,124,.3);}
 
-/* ── MISSION ── */
-.mission-sec{padding:80px 24px;border-bottom:1px solid var(--line);}
-.mission-in{max-width:640px;margin:0 auto;text-align:center;}
-.mission-h{font-size:clamp(26px,4vw,44px);font-weight:900;letter-spacing:-1.5px;line-height:1.05;color:var(--ink);margin-bottom:16px;}
+/* MISSION */
+.mission-in{max-width:600px;margin:0 auto;text-align:center;}
+.mission-h{font-size:clamp(26px,4vw,44px);font-weight:900;letter-spacing:-1.5px;line-height:1.05;color:#fff;margin-bottom:16px;}
 .mission-h em{color:var(--g);font-style:normal;}
-.mission-p{font-size:16px;color:var(--ink2);line-height:1.6;}
+.mission-p{font-size:16px;color:rgba(255,255,255,.45);line-height:1.7;}
 
-/* ── COMPARE ── */
-.cmp-sec{padding:80px 24px;border-bottom:1px solid var(--line);background:var(--bg);}
-.cmp-in{max-width:700px;margin:0 auto;}
+/* COMPARE */
 .cmp-philo{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:32px;margin-bottom:12px;}
 .cp{background:var(--w);padding:28px 26px;}
 .cp.vibby{background:rgba(0,194,124,.04);}
 .cp-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;color:var(--ink3);}
 .cp.vibby .cp-tag{color:var(--gd);}
-.cp-h{font-size:17px;font-weight:800;letter-spacing:-.3px;color:var(--ink);margin-bottom:6px;line-height:1.2;}
+.cp-h{font-size:17px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px;}
 .cp-p{font-size:13px;color:var(--ink2);line-height:1.55;}
 .cmp-t{border:1px solid var(--line);border-radius:12px;overflow:hidden;}
 .cmp-th{display:grid;grid-template-columns:1.6fr 1fr 1fr;background:var(--bg);border-bottom:1px solid var(--line);}
@@ -236,14 +216,14 @@ h1 .g{background:linear-gradient(135deg,#009960,#00C27C 45%,#22d68d);-webkit-bac
 .yes{color:var(--g);font-weight:700;}
 .nope{color:var(--ink3);}
 
-/* ── QUOTE ── */
+/* QUOTE */
 .quote{padding:64px 24px;border-bottom:1px solid var(--line);text-align:center;}
-.q-in{max-width:580px;margin:0 auto;}
-.q-t{font-size:clamp(17px,2.2vw,22px);font-weight:700;color:var(--ink);line-height:1.4;letter-spacing:-.2px;margin-bottom:16px;}
+.q-in{max-width:560px;margin:0 auto;}
+.q-t{font-size:clamp(17px,2.2vw,22px);font-weight:700;color:var(--ink);line-height:1.4;letter-spacing:-.2px;margin-bottom:14px;}
 .q-t em{color:var(--g);font-style:normal;}
 .q-a{font-size:12px;color:var(--ink3);}
 
-/* ── CTA ── */
+/* CTA */
 .cta{padding:100px 24px;text-align:center;background:var(--bg);}
 .cta-in{max-width:480px;margin:0 auto;}
 .cta h2{font-size:clamp(34px,5.5vw,60px);font-weight:900;letter-spacing:-2.5px;line-height:.95;margin-bottom:14px;}
@@ -270,24 +250,13 @@ footer{border-top:1px solid var(--line);padding:20px 24px;}
 @media(max-width:680px){
   h1{letter-spacing:-2.5px;}
   .btn-xl,.btn-xl-out{padding:12px 20px;font-size:14px;}
-  .d-layout{grid-template-columns:1fr;height:auto;}
-  .d-side{display:none;}
-  .mets{grid-template-columns:1fr 1fr;gap:6px;}
-  .met{padding:10px 12px;}
-  .met-v{font-size:17px;}
-  .met-l{font-size:8px;}
-  .met-t{font-size:9px;}
-  .d-mid-row{grid-template-columns:1fr;}
-  .orders-c{display:none;}
-  .d-bottom-row{grid-template-columns:1fr;}
-  .chart-c.weekly{display:none;}
-  .globe-panel{grid-template-columns:1fr 110px;height:160px;}
-  .globe-info{display:flex;}
-  .gi-countries{display:none;}
-  .d-body{padding:10px;gap:8px;}
-  .d-top{height:36px;}
-  .d-main{min-height:0;}
-  .how-head{grid-template-columns:1fr;gap:14px;margin-bottom:24px;}
+  .scene-body{grid-template-columns:1fr;}
+  .scene-stats{border-left:none;border-top:1px solid rgba(255,255,255,.07);flex-direction:row;flex-wrap:wrap;}
+  .ss-head{border-right:1px solid rgba(255,255,255,.07);border-bottom:none;min-width:140px;}
+  .ss-stats{flex-direction:row;flex-wrap:wrap;padding:12px;gap:10px;flex:1;}
+  .ss-stat{min-width:80px;}
+  .ss-feed{display:none;}
+  .how-head{grid-template-columns:1fr;gap:12px;margin-bottom:24px;}
   .how-cols{grid-template-columns:1fr 1fr;}
   .hc{border-right:none;border-bottom:1px solid var(--line);}
   .hc:nth-child(odd){border-right:1px solid var(--line);}
@@ -298,14 +267,14 @@ footer{border-top:1px solid var(--line);padding:20px 24px;}
   .cmp-th,.cmp-tr{grid-template-columns:1.3fr 1fr 1fr;}
   .cmp-th div,.cmp-tr div{padding:9px 10px;font-size:11px;}
   .fi{flex-direction:column;gap:10px;text-align:center;}
-  .tools-strip{gap:8px;}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
+<a href="#main-content" style="position:absolute;left:-9999px;top:4px;z-index:999;padding:8px 16px;background:var(--g);color:#fff;font-weight:600;border-radius:6px;font-size:13px;text-decoration:none;">Skip to content</a>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nlogo">
     <div class="nlogo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>
     vibby
@@ -315,6 +284,8 @@ footer{border-top:1px solid var(--line);padding:20px 24px;}
     <a href="vibby.html" class="btn btn-g">Start free →</a>
   </div>
 </nav>
+
+<main id="main-content">
 
 <!-- HERO -->
 <section class="hero">
@@ -328,177 +299,60 @@ footer{border-top:1px solid var(--line);padding:20px 24px;}
     </div>
     <div class="hero-fine h-a d5">Free · No credit card · Works with any HTML</div>
 
-    <!-- DASHBOARD -->
-    <div class="dash-wrap h-a d6">
-      <div class="dash">
-        <div class="d-bar">
-          <div style="display:flex;gap:5px;">
-            <div class="d-dot" style="background:#ff5f57;"></div>
-            <div class="d-dot" style="background:#ffbd2e;"></div>
-            <div class="d-dot" style="background:#28c840;"></div>
-          </div>
-          <div class="d-url"><div class="d-url-g"></div><span class="d-url-t">app.vibby.io</span></div>
-          <div class="d-live"><span class="d-ld"></span><span class="d-lt">Live</span></div>
+    <!-- COMMERCE SCENE -->
+    <div class="scene h-a d6">
+      <div class="scene-bar">
+        <div class="sc-dots">
+          <div class="sc-dot" style="background:#ff5f57;"></div>
+          <div class="sc-dot" style="background:#ffbd2e;"></div>
+          <div class="sc-dot" style="background:#28c840;"></div>
         </div>
-        <div class="d-layout">
-          <!-- SIDEBAR -->
-          <div class="d-side">
-            <div class="ds-logo">
-              <div class="ds-logo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>
-              <span class="ds-logo-t">vibby</span>
+        <div class="sc-url"><div class="sc-url-g"></div><span class="sc-url-t">app.vibby.io</span></div>
+        <div class="sc-live"><span class="sc-ld"></span><span class="sc-lt">Live</span></div>
+      </div>
+      <div class="scene-body">
+        <!-- GLOBE -->
+        <div class="scene-globe">
+          <canvas id="globe-canvas"></canvas>
+          <div class="toast-layer" id="toast-layer"></div>
+        </div>
+        <!-- STATS -->
+        <div class="scene-stats">
+          <div class="ss-head">
+            <div class="ss-head-label">Revenue today</div>
+            <div class="ss-rev" id="ss-rev">$0</div>
+            <div class="ss-rev-sub">↑ live · updating</div>
+          </div>
+          <div class="ss-stats">
+            <div class="ss-stat">
+              <div class="ss-stat-l">Orders</div>
+              <div class="ss-stat-v" id="ss-ord">0</div>
+              <div class="ss-stat-t up">today</div>
             </div>
-            <div class="ds-nav">
-              <div class="ds-item on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Overview</div>
-              <div class="ds-item"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Orders</div>
-              <div class="ds-item"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>Products</div>
-              <div class="ds-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Customers</div>
-              <div class="ds-item"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Analytics</div>
+            <div class="ss-stat">
+              <div class="ss-stat-l">Customers</div>
+              <div class="ss-stat-v" id="ss-cust">98</div>
+              <div class="ss-stat-t up">↑ +12 this week</div>
             </div>
-            <div class="ds-bottom">
-              <div class="ds-stat">
-                <div class="ds-stat-l">Revenue today</div>
-                <div class="ds-stat-v g" id="s-rev">$0</div>
-                <div class="ds-stat-t">↑ Live</div>
-              </div>
-              <div class="ds-stat">
-                <div class="ds-stat-l">Orders today</div>
-                <div class="ds-stat-v" id="s-ord">0</div>
-              </div>
+            <div class="ss-stat">
+              <div class="ss-stat-l">Conversion</div>
+              <div class="ss-stat-v">3.8%</div>
+              <div class="ss-stat-t">avg 1.2%</div>
+            </div>
+            <div class="ss-stat">
+              <div class="ss-stat-l">Avg. order</div>
+              <div class="ss-stat-v">$87</div>
+              <div class="ss-stat-t">this month</div>
             </div>
           </div>
-          <!-- MAIN -->
-          <div class="d-main">
-            <div class="d-top">
-              <span class="d-top-t">Overview</span>
-              <span class="d-period">Last 30 days</span>
-            </div>
-            <div class="d-body">
-              <div class="mets">
-                <div class="met feat">
-                  <div class="met-l">Revenue</div>
-                  <div class="met-v g" id="m-rev">$12,480</div>
-                  <div class="met-t">↑ +28% this month</div>
-                </div>
-                <div class="met">
-                  <div class="met-l">Orders</div>
-                  <div class="met-v" id="m-ord">143</div>
-                  <div class="met-t">↑ +17 this week</div>
-                </div>
-                <div class="met">
-                  <div class="met-l">Customers</div>
-                  <div class="met-v" id="m-cust">98</div>
-                  <div class="met-t">↑ +12 new</div>
-                </div>
-                <div class="met">
-                  <div class="met-l">Avg. order</div>
-                  <div class="met-v">$87</div>
-                  <div class="met-t n">All products</div>
-                </div>
-              </div>
-              <!-- MID ROW: chart + orders -->
-              <div class="d-mid-row">
-                <div class="chart-c">
-                  <div class="cc-top">
-                    <div><div class="cc-l">Revenue — 30 days</div></div>
-                    <div style="text-align:right;"><div class="cc-v">$12,480</div><div class="cc-up">↑ +28%</div></div>
-                  </div>
-                  <div class="cc-svg">
-                    <svg viewBox="0 0 380 80" preserveAspectRatio="none">
-                      <defs>
-                        <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stop-color="#00C27C" stop-opacity=".2"/>
-                          <stop offset="100%" stop-color="#00C27C" stop-opacity="0"/>
-                        </linearGradient>
-                        <filter id="gl"><feGaussianBlur stdDeviation="1.5"/></filter>
-                      </defs>
-                      <line x1="0" y1="20" x2="380" y2="20" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-                      <line x1="0" y1="40" x2="380" y2="40" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-                      <line x1="0" y1="60" x2="380" y2="60" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
-                      <path d="M0,68 C25,64 50,61 80,56 C110,51 130,53 160,46 C190,39 210,36 240,28 C270,20 295,22 325,13 C345,7 362,5 380,3" fill="none" stroke="#00C27C" stroke-width="3" stroke-linecap="round" opacity=".2" filter="url(#gl)"/>
-                      <path d="M0,68 C25,64 50,61 80,56 C110,51 130,53 160,46 C190,39 210,36 240,28 C270,20 295,22 325,13 C345,7 362,5 380,3" fill="none" stroke="#00C27C" stroke-width="1.8" stroke-linecap="round"/>
-                      <path d="M0,68 C25,64 50,61 80,56 C110,51 130,53 160,46 C190,39 210,36 240,28 C270,20 295,22 325,13 C345,7 362,5 380,3 L380,80 L0,80Z" fill="url(#cg)"/>
-                      <circle cx="378" cy="3.5" r="4" fill="#00C27C"/>
-                      <circle cx="378" cy="3.5" r="4" fill="none" stroke="#00C27C" stroke-opacity=".3">
-                        <animate attributeName="r" from="4" to="12" dur="2s" repeatCount="indefinite"/>
-                        <animate attributeName="stroke-opacity" from=".3" to="0" dur="2s" repeatCount="indefinite"/>
-                      </circle>
-                    </svg>
-                  </div>
-                </div>
-                <div class="orders-c">
-                  <div class="oc-head">
-                    <span class="oc-l">Recent orders</span>
-                    <div class="oc-live"><span class="oc-ld"></span>Live</div>
-                  </div>
-                  <div class="o-list" id="o-list">
-                    <div class="o-r"><div class="o-av" style="background:#7c3aed;">ML</div><div class="o-info"><div class="o-name">Marie L.</div><div class="o-prod">Digital course</div></div><div class="o-amt">$97</div><div class="o-bdg">Paid</div></div>
-                    <div class="o-r"><div class="o-av" style="background:#0891b2;">JB</div><div class="o-info"><div class="o-name">Jean B.</div><div class="o-prod">UI Kit Pro</div></div><div class="o-amt">$49</div><div class="o-bdg">Paid</div></div>
-                    <div class="o-r"><div class="o-av" style="background:#d97706;">SC</div><div class="o-info"><div class="o-name">Sophie C.</div><div class="o-prod">Consulting</div></div><div class="o-amt">$299</div><div class="o-bdg">Paid</div></div>
-                    <div class="o-r"><div class="o-av" style="background:#9333ea;">TK</div><div class="o-info"><div class="o-name">Thomas K.</div><div class="o-prod">Templates pack</div></div><div class="o-amt">$67</div><div class="o-bdg">Paid</div></div>
-                  </div>
-                </div>
-              </div>
-              <!-- BOTTOM ROW: chart area + globe -->
-              <div class="d-bottom-row">
-                <!-- left: empty space or extra chart -->
-                <div class="chart-c weekly" style="min-height:0;">
-                  <div class="cc-top" style="margin-bottom:6px;">
-                    <div><div class="cc-l">Weekly breakdown</div></div>
-                    <div style="text-align:right;"><div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.5);">Mon–Sun</div></div>
-                  </div>
-                  <div class="cc-svg" style="flex:1;">
-                    <svg viewBox="0 0 280 60" preserveAspectRatio="none">
-                      <defs><linearGradient id="cg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00C27C" stop-opacity=".15"/><stop offset="100%" stop-color="#00C27C" stop-opacity="0"/></linearGradient></defs>
-                      <g>
-                        <rect x="5" y="40" width="30" height="20" fill="rgba(0,194,124,.12)" rx="3"/>
-                        <rect x="45" y="30" width="30" height="30" fill="rgba(0,194,124,.16)" rx="3"/>
-                        <rect x="85" y="22" width="30" height="38" fill="rgba(0,194,124,.2)" rx="3"/>
-                        <rect x="125" y="35" width="30" height="25" fill="rgba(0,194,124,.14)" rx="3"/>
-                        <rect x="165" y="12" width="30" height="48" fill="rgba(0,194,124,.28)" rx="3"/>
-                        <rect x="205" y="18" width="30" height="42" fill="rgba(0,194,124,.24)" rx="3"/>
-                        <rect x="245" y="5" width="30" height="55" fill="rgba(0,194,124,.35)" rx="3"/>
-                      </g>
-                      <text x="20" y="57" font-size="7" fill="rgba(255,255,255,.2)" text-anchor="middle" font-family="Inter,sans-serif">M</text>
-                      <text x="60" y="57" font-size="7" fill="rgba(255,255,255,.2)" text-anchor="middle" font-family="Inter,sans-serif">T</text>
-                      <text x="100" y="57" font-size="7" fill="rgba(255,255,255,.2)" text-anchor="middle" font-family="Inter,sans-serif">W</text>
-                      <text x="140" y="57" font-size="7" fill="rgba(255,255,255,.2)" text-anchor="middle" font-family="Inter,sans-serif">T</text>
-                      <text x="180" y="57" font-size="7" fill="rgba(255,255,255,.3)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="bold">F</text>
-                      <text x="220" y="57" font-size="7" fill="rgba(255,255,255,.2)" text-anchor="middle" font-family="Inter,sans-serif">S</text>
-                      <text x="260" y="57" font-size="7" fill="rgba(0,194,124,.7)" text-anchor="middle" font-family="Inter,sans-serif" font-weight="bold">S</text>
-                    </svg>
-                  </div>
-                </div>
-                <!-- GLOBE PANEL -->
-                <div class="globe-panel">
-                  <div class="globe-canvas-wrap">
-                    <canvas id="mini-globe"></canvas>
-                  </div>
-                  <div class="globe-info">
-                    <div class="gi-head">
-                      <div class="gi-title">Live sales</div>
-                      <div class="gi-count" id="globe-sales-count">0</div>
-                      <div class="gi-sub">transactions today</div>
-                    </div>
-                    <div class="gi-live" id="gi-live-list">
-                      <div class="gi-live-row"><span class="gi-live-city">Berlin</span><span class="gi-live-amt">$149</span></div>
-                      <div class="gi-live-row"><span class="gi-live-city">Montréal</span><span class="gi-live-amt">$89</span></div>
-                      <div class="gi-live-row"><span class="gi-live-city">Tokyo</span><span class="gi-live-amt">$299</span></div>
-                    </div>
-                    <div class="gi-countries">
-                      <div class="gi-countries-t">Active countries</div>
-                      <div class="gi-country"><span class="gi-country-dot"></span><span class="gi-country-name">🇩🇪 Germany</span></div>
-                      <div class="gi-country"><span class="gi-country-dot"></span><span class="gi-country-name">🇨🇦 Canada</span></div>
-                      <div class="gi-country"><span class="gi-country-dot"></span><span class="gi-country-name">🇯🇵 Japan</span></div>
-                      <div class="gi-country"><span class="gi-country-dot"></span><span class="gi-country-name">🇫🇷 France</span></div>
-                      <div class="gi-country"><span class="gi-country-dot"></span><span class="gi-country-name">🇺🇸 USA</span></div>
-                      <div class="gi-country"><span class="gi-country-dot" style="opacity:.3"></span><span class="gi-country-name" style="opacity:.3">🇦🇺 Australia</span></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="ss-feed">
+            <div class="ss-feed-label"><span class="ss-feed-dot"></span>Live sales</div>
+            <div id="ss-feed-list">
+              <div class="ss-feed-item"><span class="ss-feed-city">🇩🇪 Berlin</span><span class="ss-feed-amt">+$149</span></div>
+              <div class="ss-feed-item"><span class="ss-feed-city">🇨🇦 Montréal</span><span class="ss-feed-amt">+$89</span></div>
+              <div class="ss-feed-item"><span class="ss-feed-city">🇯🇵 Tokyo</span><span class="ss-feed-amt">+$299</span></div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -513,102 +367,61 @@ footer{border-top:1px solid var(--line);padding:20px 24px;}
 </div>
 
 <!-- HOW -->
-<section class="how rv" id="how">
-  <div class="how-in">
+<section class="sec rv" id="how">
+  <div class="sec-in">
     <div class="how-head">
-      <div>
-        <div class="sec-ey">How it works</div>
-        <h2 class="sec-h">Four steps to revenue.</h2>
-      </div>
-      <p class="how-p">The simplest path from AI-built idea to commerce. No backend, no devops, no compromises.</p>
+      <div><div class="sec-ey">How it works</div><h2 class="sec-h">Four steps to revenue.</h2></div>
+      <p class="how-p">From AI-built idea to live commerce in 60 seconds. No backend, no devops, no compromises on your design.</p>
     </div>
     <div class="how-cols">
-      <div class="hc">
-        <div class="hc-n">01</div>
-        <div class="hc-ic"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-        <div class="hc-t">Build with AI</div>
-        <div class="hc-d">Design your site with Claude, Cursor or Bolt. Any HTML output works.</div>
-        <div class="hc-pills"><span class="hc-pill">Claude</span><span class="hc-pill">Cursor</span><span class="hc-pill">Bolt</span></div>
-      </div>
-      <div class="hc">
-        <div class="hc-n">02</div>
-        <div class="hc-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-        <div class="hc-t">Paste into Vibby</div>
-        <div class="hc-d">Commerce injects automatically — products, checkout, emails. Zero code.</div>
-        <div class="hc-pills"><span class="hc-pill">1 click</span><span class="hc-pill">No backend</span></div>
-      </div>
-      <div class="hc">
-        <div class="hc-n">03</div>
-        <div class="hc-ic"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <div class="hc-t">Go live anywhere</div>
-        <div class="hc-d">Drop on Netlify, GitHub Pages, or Vercel. Live in 60 seconds.</div>
-        <div class="hc-pills"><span class="hc-pill">Netlify</span><span class="hc-pill">Vercel</span><span class="hc-pill">GitHub</span></div>
-      </div>
-      <div class="hc">
-        <div class="hc-n">04</div>
-        <div class="hc-ic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <div class="hc-t">Manage everything</div>
-        <div class="hc-d">Orders, customers, analytics. A full commerce backend, yours.</div>
-        <div class="hc-pills"><span class="hc-pill">Orders</span><span class="hc-pill">Customers</span><span class="hc-pill">Analytics</span></div>
-      </div>
+      <div class="hc"><div class="hc-n">01</div><div class="hc-ic"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="hc-t">Build with AI</div><div class="hc-d">Design your site with Claude, Cursor or Bolt. Any HTML output works.</div><div class="hc-pills"><span class="hc-pill">Claude</span><span class="hc-pill">Cursor</span><span class="hc-pill">Bolt</span></div></div>
+      <div class="hc"><div class="hc-n">02</div><div class="hc-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="hc-t">Paste into Vibby</div><div class="hc-d">Commerce injects automatically — products, checkout, emails. Zero code.</div><div class="hc-pills"><span class="hc-pill">1 click</span><span class="hc-pill">No backend</span></div></div>
+      <div class="hc"><div class="hc-n">03</div><div class="hc-ic"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="hc-t">Go live anywhere</div><div class="hc-d">Drop on Netlify, GitHub Pages, or Vercel. Live in 60 seconds.</div><div class="hc-pills"><span class="hc-pill">Netlify</span><span class="hc-pill">Vercel</span><span class="hc-pill">GitHub</span></div></div>
+      <div class="hc"><div class="hc-n">04</div><div class="hc-ic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="hc-t">Manage everything</div><div class="hc-d">Orders, customers, analytics. A full commerce backend, yours.</div><div class="hc-pills"><span class="hc-pill">Orders</span><span class="hc-pill">Customers</span><span class="hc-pill">Analytics</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- BEFORE / AFTER -->
-<section class="ba-sec rv">
-  <div class="ba-in">
-    <div style="text-align:center;margin-bottom:0;">
-      <div class="sec-ey" style="color:rgba(255,255,255,.3);">The difference</div>
-      <h2 class="sec-h" style="color:#fff;font-size:clamp(28px,4vw,48px);">Your design.<br><span style="color:var(--g);">Your rules.</span></h2>
+<section class="dark-sec rv">
+  <div class="sec-in">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div class="sec-ey">The difference</div>
+      <h2 class="sec-h" style="color:#fff;">Your design.<br><span style="color:var(--g);">Your rules.</span></h2>
     </div>
     <div class="ba-grid">
-      <div class="ba-col">
-        <div class="ba-hd"><span class="ba-tag b">Without Vibby</span></div>
-        <div class="ba-body">
-          <div class="ba-step"><div class="ba-ic">🎨</div><div><div class="ba-t">Build with AI — beautiful site</div><div class="ba-s">Claude, Cursor, Bolt</div></div></div>
-          <div class="ba-step"><div class="ba-ic">😩</div><div><div class="ba-t">Want to add a buy button</div><div class="ba-s">Stripe docs, webhooks, Node.js...</div></div></div>
-          <div class="ba-step"><div class="ba-ic">😤</div><div><div class="ba-t">Force your design into Shopify</div><div class="ba-s">Their templates. Their constraints.</div></div></div>
-        </div>
-      </div>
+      <div class="ba-col"><div class="ba-hd"><span class="ba-tag b">Without Vibby</span></div><div class="ba-body">
+        <div class="ba-step"><div class="ba-ic">🎨</div><div><div class="ba-t">Build with AI — beautiful site</div><div class="ba-s">Claude, Cursor, Bolt</div></div></div>
+        <div class="ba-step"><div class="ba-ic">😩</div><div><div class="ba-t">Want to add a buy button</div><div class="ba-s">Stripe docs, webhooks, Node.js...</div></div></div>
+        <div class="ba-step"><div class="ba-ic">😤</div><div><div class="ba-t">Force your design into Shopify</div><div class="ba-s">Their templates. Their constraints.</div></div></div>
+      </div></div>
       <div class="ba-arr"><div class="ba-arr-ic"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
-      <div class="ba-col">
-        <div class="ba-hd"><span class="ba-tag a">With Vibby</span></div>
-        <div class="ba-body">
-          <div class="ba-step"><div class="ba-ic">🎨</div><div><div class="ba-t">Build with AI — beautiful site</div><div class="ba-s">Claude, Cursor, Bolt</div></div></div>
-          <div class="ba-step"><div class="ba-ic">⚡</div><div><div class="ba-t">Paste into Vibby — commerce injects</div><div class="ba-s">Products, checkout, emails. Done.</div></div></div>
-          <div class="ba-step"><div class="ba-ic">💰</div><div><div class="ba-t">Your design. Your commerce. Yours.</div><div class="ba-s">Live in 60 seconds, anywhere.</div></div></div>
-        </div>
-      </div>
+      <div class="ba-col"><div class="ba-hd"><span class="ba-tag a">With Vibby</span></div><div class="ba-body">
+        <div class="ba-step"><div class="ba-ic">🎨</div><div><div class="ba-t">Build with AI — beautiful site</div><div class="ba-s">Claude, Cursor, Bolt</div></div></div>
+        <div class="ba-step"><div class="ba-ic">⚡</div><div><div class="ba-t">Paste into Vibby — commerce injects</div><div class="ba-s">Products, checkout, emails. Done.</div></div></div>
+        <div class="ba-step"><div class="ba-ic">💰</div><div><div class="ba-t">Your design. Your commerce. Yours.</div><div class="ba-s">Live in 60 seconds, anywhere.</div></div></div>
+      </div></div>
     </div>
   </div>
 </section>
 
 <!-- MISSION -->
-<section class="mission-sec rv">
-  <div class="mission-in">
+<section class="sec rv" style="border-bottom:1px solid var(--line);">
+  <div class="mission-in" style="max-width:600px;margin:0 auto;text-align:center;">
     <div class="sec-ey" style="text-align:center;">Why Vibby exists</div>
-    <h2 class="mission-h">Millions of websites<br>are built with AI.<br>Commerce wasn't built<br>for them. <em>Vibby is.</em></h2>
-    <p class="mission-p">Shopify was built for a world where you hire developers. Vibby was built for a world where you build with AI in an afternoon — and sell by evening.</p>
+    <h2 class="sec-h" style="text-align:center;margin-bottom:16px;">Millions of websites are built with AI.<br>Commerce wasn't. <span style="color:var(--g);">Vibby is.</span></h2>
+    <p style="font-size:16px;color:var(--ink2);line-height:1.7;">Shopify was built for a world where you hire developers. Vibby was built for a world where you build with AI in an afternoon — and sell by evening.</p>
   </div>
 </section>
 
 <!-- COMPARE -->
-<section class="cmp-sec rv" id="compare">
-  <div class="cmp-in">
+<section class="sec gray rv">
+  <div class="sec-in-sm">
     <div class="sec-ey">Vibby vs Shopify</div>
-    <h2 class="sec-h" style="font-size:clamp(28px,4vw,48px);">Two philosophies.</h2>
+    <h2 class="sec-h" style="margin-bottom:0;">Two philosophies.</h2>
     <div class="cmp-philo">
-      <div class="cp">
-        <div class="cp-tag">Shopify</div>
-        <div class="cp-h">You build inside their system.</div>
-        <div class="cp-p">Their templates. Their checkout. Their constraints. You adapt your vision to fit their box.</div>
-      </div>
-      <div class="cp vibby">
-        <div class="cp-tag">✦ Vibby</div>
-        <div class="cp-h">Your system. Your design. Your rules.</div>
-        <div class="cp-p">Build exactly what you imagine with AI. Commerce is the layer — not the constraint.</div>
-      </div>
+      <div class="cp"><div class="cp-tag">Shopify</div><div class="cp-h">You build inside their system.</div><div class="cp-p">Their templates. Their checkout. Their constraints. Your vision adapts to fit their box.</div></div>
+      <div class="cp vibby"><div class="cp-tag">✦ Vibby</div><div class="cp-h">Your system. Your design. Your rules.</div><div class="cp-p">Build exactly what you imagine with AI. Commerce is the layer — not the constraint.</div></div>
     </div>
     <div class="cmp-t">
       <div class="cmp-th"><div></div><div class="hi">✦ Vibby</div><div>Shopify</div></div>
@@ -639,277 +452,317 @@ footer{border-top:1px solid var(--line);padding:20px 24px;}
   </div>
 </section>
 
+</main>
+
 <footer>
   <div class="fi">
     <div class="fl"><div class="flic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>vibby</div>
-    <div class="fc_">© 2026 Vibby</div>
+    <div class="fc_">© 2026 Vibby · Commerce platform for AI-built websites</div>
     <div class="fls"><a href="#">Privacy</a><a href="#">Terms</a><a href="vibby.html">App →</a></div>
   </div>
 </footer>
 
 <script>
-// ── LOGO DATA ──
-const tools=[
-  {name:'Claude',c:'#D97757',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M7 16.5l5-9 5 9M8.5 13.5h7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`},
-  {name:'Cursor',c:'#1a1a1a',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M12 3L3 21h18L12 3z" opacity=".9"/><path d="M12 10l-4 11h8L12 10z" fill="#1a1a1a"/></svg>`},
-  {name:'Bolt',c:'#7c3aed',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`},
-  {name:'Lovable',c:'#f43f5e',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 18s-7-4.5-7-9a4 4 0 018 0 4 4 0 018 0c0 4.5-7 9-7 9z" fill="white"/></svg>`},
-  {name:'ChatGPT',c:'#10a37f',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9" stroke="#10a37f" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`},
-  {name:'Replit',c:'#3b82f6',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M2 2h9v7H2V2zm0 7h9v6H2V9zm0 6h9v7H2v-7zm10-13h10v6H12V2zm0 7h10v6H12V9z"/></svg>`},
-];
-
-// Tool tags strip
-const toolTagsEl = document.getElementById('tool-tags');
-if(toolTagsEl){
-  toolTagsEl.style.cssText='display:flex;gap:6px;flex-wrap:wrap;justify-content:center;';
-  toolTagsEl.innerHTML = tools.map(t=>`<div class="tool-tag"><div class="tool-ic" style="background:${t.c};">${t.svg}</div>${t.name}</div>`).join('');
-}
-
-// ── COUNT UPS ──
-function cu(el,to,pre,dur){
-  if(!el)return;
-  const from=Math.round(to*.5),t0=performance.now();
-  const f=n=>{const p=Math.min((n-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=pre+Math.round(from+(to-from)*e).toLocaleString('en-US');if(p<1)requestAnimationFrame(f);};
-  requestAnimationFrame(f);
-}
-setTimeout(()=>{
-  cu(document.getElementById('m-rev'),12480,'$',2000);
-  cu(document.getElementById('m-ord'),143,'',1500);
-  cu(document.getElementById('m-cust'),98,'',1300);
-},600);
-
-// ── LIVE SALES ──
-const sales=[
-  {city:'Berlin',product:'Design System',amt:149,av:'BL',c:'#7c3aed'},
-  {city:'Montréal',product:'AI Template',amt:89,av:'MT',c:'#0891b2'},
-  {city:'Tokyo',product:'Commerce Kit',amt:299,av:'TK',c:'#d97706'},
-  {city:'Paris',product:'UI Bundle',amt:59,av:'PA',c:'#dc2626'},
-  {city:'New York',product:'Starter Pack',amt:129,av:'NY',c:'#9333ea'},
-  {city:'Sydney',product:'Pro Plan',amt:49,av:'SY',c:'#0369a1'},
-  {city:'London',product:'Full Stack Kit',amt:199,av:'LN',c:'#16a34a'},
-  {city:'Singapore',product:'API Access',amt:79,av:'SG',c:'#7c3aed'},
-];
-let si=0, todayRev=0, todayOrd=0;
-const dfList=document.getElementById('df-list');
-const sRevEl=document.getElementById('s-rev');
-const sOrdEl=document.getElementById('s-ord');
-const oList=document.getElementById('o-list');
-const oColors=['#7c3aed','#0891b2','#d97706','#dc2626','#9333ea','#0369a1','#16a34a'];
-const oNames=['Marie L.','Jean B.','Sophie C.','Thomas K.','Alex M.','Nina P.','Rémi B.'];
-const oProds=['Digital course','UI Kit Pro','Consulting','Templates pack','Design system','Starter kit','Icon pack'];
-const oAmts=[97,49,299,67,149,39,89];
-let oIdx=0;
-
-// init feed
-for(let i=0;i<6;i++){
-  const s=sales[i%sales.length];
-  if(dfList){
-    const el=document.createElement('div');
-    el.className='df-item';
-    el.innerHTML=`<div class="df-row1"><span class="df-city">${s.city}</span><span class="df-amt">+$${s.amt}</span></div><div class="df-prod">${s.product}</div><div class="df-time">${(i+1)*2} min ago</div>`;
-    dfList.appendChild(el);
-  }
-}
-
-function addSale(){
-  const s=sales[si++%sales.length];
-  todayRev+=s.amt;
-  todayOrd++;
-  if(sRevEl) sRevEl.textContent='$'+todayRev.toLocaleString('en-US');
-  if(sOrdEl) sOrdEl.textContent=todayOrd;
-
-  // feed
-  if(dfList){
-    const el=document.createElement('div');
-    el.className='df-item new';
-    const now=new Date();
-    el.innerHTML=`<div class="df-row1"><span class="df-city">${s.city}</span><span class="df-amt">+$${s.amt}</span></div><div class="df-prod">${s.product}</div><div class="df-time">just now</div>`;
-    dfList.insertBefore(el,dfList.firstChild);
-    // update older times
-    dfList.querySelectorAll('.df-time').forEach((t,i)=>{if(i>0)t.textContent=i*2+' min ago';});
-    if(dfList.children.length>7) dfList.lastChild.remove();
-  }
-
-  // recent orders
-  if(oList){
-    const ci=oIdx%oColors.length;
-    const row=document.createElement('div');
-    row.className='o-r o-new';
-    const init=oNames[ci].split(' ').map(n=>n[0]).join('');
-    row.innerHTML=`<div class="o-av" style="background:${oColors[ci]};">${init}</div><div class="o-info"><div class="o-name">${oNames[ci]}</div><div class="o-prod">${oProds[ci]}</div></div><div class="o-amt">$${oAmts[ci]}</div><div class="o-bdg">Paid</div>`;
-    oList.insertBefore(row,oList.firstChild);
-    if(oList.children.length>4) oList.lastChild.remove();
-    oIdx++;
-  }
-
-  // globe dot
-  if(window.addGlobeDot) window.addGlobeDot(s.city, s.amt);
-}
-
-// kickstart
-setTimeout(addSale,2000);
-setInterval(addSale,3400);
-
-// ── GLOBE ──
+// ── GLOBE (D3 orthographic + Natural Earth TopoJSON) ──
 (function(){
-  const gc = document.getElementById('mini-globe');
+  const gc = document.getElementById('globe-canvas');
   if(!gc) return;
   const ctx = gc.getContext('2d');
-  let W=0, H=0, CX=0, CY=0, R=0;
-  let rot = 0;
+  let W=0,H=0,CX=0,CY=0,R=0;
+  let rotation = 0;
   const dots = [];
-  let salesCount = 0;
-  const scEl = document.getElementById('globe-sales-count');
 
   function resize(){
     const wrap = gc.parentElement;
-    const panel = wrap ? wrap.parentElement : null;
-    const pw = wrap ? wrap.offsetWidth : 0;
-    const ph = panel ? panel.offsetHeight : 0;
-    if(!pw || !ph) return;
-    W = gc.width  = pw;
-    H = gc.height = ph;
+    if(!wrap||!wrap.offsetWidth||!wrap.offsetHeight) return;
+    W = gc.width  = wrap.offsetWidth;
+    H = gc.height = wrap.offsetHeight;
     CX = W/2; CY = H/2;
-    R  = Math.min(W, H) / 2 - 1;
+    R  = Math.min(W,H)/2 - 4;
   }
 
-  function project(lat, lon){
-    const phi   = (90 - lat) * Math.PI / 180;
-    const theta = (lon + 180) * Math.PI / 180;
-    const x = -Math.sin(phi) * Math.cos(theta);
-    const y =  Math.cos(phi);
-    const z =  Math.sin(phi) * Math.sin(theta);
-    const cr = Math.cos(rot), sr = Math.sin(rot);
-    const rx = x*cr - z*sr, rz = x*sr + z*cr;
-    const sc = (rz + 2) / 3;
-    return { x: CX + rx*R*sc, y: CY - y*R*sc, vis: rz > -0.1 };
+  // --- D3-style orthographic projection from scratch ---
+  function project(lon, lat) {
+    // rotate longitude
+    const lam = (lon + rotation * 180 / Math.PI) * Math.PI / 180;
+    const phi = lat * Math.PI / 180;
+    const x = Math.cos(phi) * Math.cos(lam);
+    const y = Math.cos(phi) * Math.sin(lam);
+    const z = Math.sin(phi);
+    // orthographic: only front hemisphere
+    if (x < -0.01) return null;
+    return {
+      sx: CX + R * y,
+      sy: CY - R * z,
+      visible: x >= -0.01
+    };
   }
 
-  const continents = [
-    [[70,-140],[74,-100],[72,-80],[65,-65],[50,-55],[44,-66],[40,-74],[35,-77],[30,-81],[25,-80],[20,-87],[15,-85],[8,-77],[10,-75],[20,-90],[30,-94],[25,-97],[20,-104],[15,-92],[8,-77],[35,-120],[38,-123],[46,-124],[50,-125],[57,-136],[62,-140],[70,-140]],
-    [[10,-62],[10,-75],[5,-77],[0,-80],[-5,-81],[-15,-75],[-20,-70],[-30,-71],[-40,-73],[-55,-68],[-55,-64],[-40,-62],[-35,-58],[-30,-50],[-20,-40],[-10,-37],[-5,-35],[0,-50],[5,-53],[8,-60],[10,-62]],
-    [[72,28],[70,25],[68,18],[65,13],[62,5],[58,5],[54,0],[51,2],[50,8],[47,8],[44,8],[44,3],[40,3],[38,-9],[36,-6],[36,3],[44,8],[48,5],[50,2],[54,8],[58,25],[65,25],[68,30],[72,28]],
-    [[35,-5],[33,10],[32,25],[22,37],[12,45],[8,42],[2,41],[-5,40],[-12,40],[-20,35],[-27,33],[-35,27],[-35,20],[-30,17],[-20,13],[-10,14],[-5,10],[0,9],[5,-5],[10,-17],[20,-17],[30,-10],[35,-5]],
-    [[72,28],[72,68],[70,100],[65,140],[55,160],[50,140],[45,135],[40,130],[35,120],[25,120],[20,110],[10,105],[5,103],[1,104],[5,100],[15,100],[20,100],[25,97],[22,88],[20,87],[10,80],[8,77],[10,76],[22,68],[25,62],[28,57],[22,57],[12,45],[22,37],[32,25],[40,30],[50,36],[60,56],[72,68],[72,28]],
-    [[-15,128],[-12,136],[-15,145],[-20,148],[-27,153],[-35,151],[-38,145],[-38,140],[-35,138],[-33,115],[-22,114],[-18,122],[-15,128]],
-    [[42,142],[38,141],[35,137],[34,131],[36,136],[40,140],[42,142]],
-  ];
-
-  const cityCoords = {
-    'Berlin':[52.5,13.4],'Montréal':[45.5,-73.6],'Tokyo':[35.7,139.7],
-    'Paris':[48.8,2.3],'New York':[40.7,-74],'Sydney':[-33.8,151.2],
-    'London':[51.5,-0.1],'Singapore':[1.3,103.8],'Dubai':[25.2,55.3],
-  };
-
-  window.addGlobeDot = function(city, amt){
-    const c = cityCoords[city] || [20, 0];
-    dots.push({ lat:c[0], lon:c[1], born:Date.now(), city, amt });
-    salesCount++;
-    if(scEl) scEl.textContent = salesCount;
-    const liveList = document.getElementById('gi-live-list');
-    if(liveList && amt){
-      const row = document.createElement('div');
-      row.className = 'gi-live-row gi-live-new';
-      row.innerHTML = `<span class="gi-live-city">${city}</span><span class="gi-live-amt">$${amt}</span>`;
-      liveList.insertBefore(row, liveList.firstChild);
-      if(liveList.children.length > 3) liveList.lastChild.remove();
+  // Draw a GeoJSON geometry (LineString or Polygon ring) on canvas
+  function drawRing(coords) {
+    if(!coords||coords.length<2) return;
+    let started = false;
+    for(let i=0;i<coords.length;i++){
+      const p = project(coords[i][0], coords[i][1]);
+      if(!p){ started=false; continue; }
+      if(!started){ ctx.moveTo(p.sx,p.sy); started=true; }
+      else ctx.lineTo(p.sx,p.sy);
     }
+  }
+
+  let land = null;   // GeoJSON FeatureCollection of land polygons
+  let loaded = false;
+
+  // Load world topojson from CDN
+  function loadMap(){
+    const script1 = document.createElement('script');
+    script1.src = 'https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js';
+    script1.onload = () => {
+      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+        .then(r=>r.json())
+        .then(world=>{
+          land = topojson.feature(world, world.objects.land);
+          loaded = true;
+        }).catch(()=>{ loaded = false; });
+    };
+    document.head.appendChild(script1);
+  }
+
+  window.addGlobeDot = function(lat, lon){
+    dots.push({lat, lon, born: Date.now()});
   };
+
+  // Pre-compute drawRing with clipping guard to prevent seam bug
+  function drawGeom(geom){
+    if(!geom) return;
+    const rings = geom.type==='Polygon' ? geom.coordinates
+                : geom.type==='MultiPolygon' ? geom.coordinates.flat()
+                : [];
+    rings.forEach(ring=>{
+      if(ring.length < 3) return;
+      ctx.beginPath();
+      let penDown = false;
+      let prevVisible = false;
+      for(let i=0;i<ring.length;i++){
+        const p = project(ring[i][0], ring[i][1]);
+        if(!p){
+          penDown = false;
+          prevVisible = false;
+          continue;
+        }
+        if(!penDown){ ctx.moveTo(p.sx,p.sy); penDown=true; }
+        else ctx.lineTo(p.sx,p.sy);
+        prevVisible = true;
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    });
+  }
 
   function draw(){
-    // Safety guard — never draw if dimensions invalid
-    if(!(R > 0) || !isFinite(CX) || !isFinite(CY)) return;
+    if(!(R>0)||!isFinite(CX)||!isFinite(CY)) return;
+    ctx.clearRect(0,0,W,H);
 
-    ctx.clearRect(0, 0, W, H);
+    // ── Ocean — dark, brand-aligned ──
+    const ocean = ctx.createRadialGradient(CX-R*.1,CY-R*.15,1,CX,CY,R);
+    ocean.addColorStop(0,'#0d1f14');
+    ocean.addColorStop(.65,'#091510');
+    ocean.addColorStop(1,'#060d09');
+    ctx.fillStyle = ocean;
+    ctx.beginPath(); ctx.arc(CX,CY,R,0,Math.PI*2); ctx.fill();
 
-    // Base sphere
-    const g0 = ctx.createRadialGradient(CX - R*.15, CY - R*.15, 1, CX, CY, R);
-    g0.addColorStop(0, '#162b1e');
-    g0.addColorStop(.7, '#0e1c14');
-    g0.addColorStop(1, '#090e0b');
-    ctx.fillStyle = g0;
-    ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI*2); ctx.fill();
-
-    // Clip to sphere
+    // Clip everything to sphere
     ctx.save();
-    ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI*2); ctx.clip();
+    ctx.beginPath(); ctx.arc(CX,CY,R,0,Math.PI*2); ctx.clip();
 
-    // Grid
-    ctx.lineWidth = .6;
-    for(let lon = -180; lon < 180; lon += 30){
-      ctx.beginPath(); ctx.strokeStyle = 'rgba(0,194,124,.08)'; let f=true;
-      for(let lat = -90; lat <= 90; lat += 5){
-        const p = project(lat, lon);
-        if(!p.vis){ f=true; continue; }
-        f ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y); f=false;
-      } ctx.stroke();
-    }
-    for(let lat = -60; lat <= 60; lat += 30){
-      ctx.beginPath(); ctx.strokeStyle = 'rgba(0,194,124,.06)'; let f=true;
-      for(let lon = -180; lon <= 180; lon += 5){
-        const p = project(lat, lon);
-        if(!p.vis){ f=true; continue; }
-        f ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y); f=false;
-      } ctx.stroke();
-    }
-
-    // Continents
-    continents.forEach(poly => {
-      ctx.beginPath(); let f=true;
-      poly.forEach(([la,lo]) => {
-        const p = project(la, lo);
-        if(!p.vis){ f=true; return; }
-        f ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y); f=false;
-      });
-      ctx.closePath();
-      ctx.fillStyle = 'rgba(0,194,124,.16)'; ctx.fill();
-      ctx.strokeStyle = 'rgba(0,194,124,.32)'; ctx.lineWidth = .8; ctx.stroke();
-    });
-
-    // Sale dots
-    const now = Date.now();
-    for(let i = dots.length-1; i >= 0; i--){
-      const d = dots[i];
-      const age = (now - d.born)/1000;
-      if(age > 6){ dots.splice(i,1); continue; }
-      const p = project(d.lat, d.lon);
-      if(!p.vis) continue;
-      const a = Math.max(0, 1 - age/6);
-      ctx.beginPath(); ctx.arc(p.x,p.y, 3+(age%1)*7*a, 0, Math.PI*2);
-      ctx.strokeStyle = `rgba(0,255,150,${a*.4})`; ctx.lineWidth=1.2; ctx.stroke();
-      ctx.beginPath(); ctx.arc(p.x,p.y,3.5,0,Math.PI*2);
-      ctx.fillStyle = `rgba(0,240,140,${a})`; ctx.fill();
-      ctx.beginPath(); ctx.arc(p.x,p.y,1.5,0,Math.PI*2);
-      ctx.fillStyle = `rgba(255,255,255,${a*.9})`; ctx.fill();
-      // label
-      if(a > .6 && d.city){
-        ctx.font='600 8px Inter,sans-serif';
-        ctx.fillStyle=`rgba(0,230,140,${a*.9})`;
-        ctx.fillText(d.city, Math.min(p.x+7, W-60), p.y-3);
+    // ── Graticules — very subtle green ──
+    ctx.lineWidth = .4;
+    ctx.strokeStyle = 'rgba(0,194,124,.08)';
+    for(let lon=-180;lon<=180;lon+=30){
+      ctx.beginPath();
+      let first=true;
+      for(let lat=-85;lat<=85;lat+=3){
+        const p=project(lon,lat);
+        if(!p){first=true;continue;}
+        first?ctx.moveTo(p.sx,p.sy):ctx.lineTo(p.sx,p.sy);first=false;
       }
+      ctx.stroke();
     }
-    ctx.restore();
+    for(let lat=-60;lat<=60;lat+=30){
+      ctx.beginPath();
+      let first=true;
+      for(let lon=-180;lon<=180;lon+=3){
+        const p=project(lon,lat);
+        if(!p){first=true;continue;}
+        first?ctx.moveTo(p.sx,p.sy):ctx.lineTo(p.sx,p.sy);first=false;
+      }
+      ctx.stroke();
+    }
+
+    // ── Land — green, brand color ──
+    ctx.fillStyle = 'rgba(0,194,124,.22)';
+    ctx.strokeStyle = 'rgba(0,210,130,.45)';
+    ctx.lineWidth = .5;
+    if(loaded && land){
+      land.features.forEach(f=>drawGeom(f.geometry));
+    } else {
+      // Simple fallback while loading
+      const fb=[
+        [[-125,50],[-82,25],[-81,30],[-70,43],[-53,47]],
+        [[-80,-5],[-35,-8],[-35,-55],[-75,-55],[-80,-5]],
+        [[-10,36],[40,36],[40,72],[-10,72],[-10,36]],
+        [[-18,37],[52,37],[52,-35],[-18,-35],[-18,37]],
+        [[26,72],[180,72],[180,-10],[95,-10],[95,8],[60,8],[60,22],[26,22],[26,72]],
+        [[113,-22],[154,-22],[154,-44],[113,-44],[113,-22]],
+      ];
+      fb.forEach(r=>{
+        ctx.beginPath();
+        r.forEach(([lon,lat],i)=>{
+          const p=project(lon,lat);if(!p)return;
+          i===0?ctx.moveTo(p.sx,p.sy):ctx.lineTo(p.sx,p.sy);
+        });
+        ctx.closePath();ctx.fill();ctx.stroke();
+      });
+    }
+
+    // ── Sale dots ──
+    const now = Date.now();
+    for(let i=dots.length-1;i>=0;i--){
+      const d=dots[i], age=(now-d.born)/1000;
+      if(age>5){dots.splice(i,1);continue;}
+      const p=project(d.lon,d.lat);
+      if(!p) continue;
+      const a=Math.max(0,1-age/5);
+      // outer pulse — two rings for depth
+      ctx.beginPath();ctx.arc(p.sx,p.sy,4+(age%1.5)*11*a,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(0,255,140,${a*.25})`;ctx.lineWidth=1;ctx.stroke();
+      ctx.beginPath();ctx.arc(p.sx,p.sy,3+(age%1.2)*6*a,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(0,255,140,${a*.45})`;ctx.lineWidth=1.2;ctx.stroke();
+      // core dot
+      ctx.beginPath();ctx.arc(p.sx,p.sy,4,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,224,120,${a})`;ctx.fill();
+      // bright center
+      ctx.beginPath();ctx.arc(p.sx,p.sy,1.8,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${a*.9})`;ctx.fill();
+    }
+
+    ctx.restore(); // end sphere clip
+
+    // ── Atmosphere — thin white halo, discrete ──
+    const atmo = ctx.createRadialGradient(CX,CY,R*.97,CX,CY,R*1.08);
+    atmo.addColorStop(0,'rgba(255,255,255,0)');
+    atmo.addColorStop(.5,'rgba(255,255,255,.04)');
+    atmo.addColorStop(1,'rgba(255,255,255,.11)');
+    ctx.fillStyle=atmo;
+    ctx.beginPath();ctx.arc(CX,CY,R*1.08,0,Math.PI*2);ctx.fill();
+
+    // ── Specular — top-left white glint ──
+    const spec=ctx.createRadialGradient(CX-R*.38,CY-R*.35,0,CX-R*.38,CY-R*.35,R*.55);
+    spec.addColorStop(0,'rgba(255,255,255,.09)');
+    spec.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=spec;
+    ctx.beginPath();ctx.arc(CX,CY,R,0,Math.PI*2);ctx.fill();
   }
 
-  function tick(){ rot += .0022; draw(); requestAnimationFrame(tick); }
+  function tick(){
+    rotation += .0018;
+    draw();
+    requestAnimationFrame(tick);
+  }
 
   function init(){
     resize();
+    loadMap();
     tick();
     window.addEventListener('resize', resize);
   }
 
-  if(document.readyState === 'complete'){ init(); }
-  else { window.addEventListener('load', init); }
+  if(document.readyState==='complete'){ init(); }
+  else{ window.addEventListener('load', init); }
 })();
 
-// ── LOGO DATA ──
+// ── LIVE COMMERCE ──
+const sales=[
+  {city:'Berlin',    flag:'🇩🇪',lat:52.5, lon:13.4, amt:149},
+  {city:'Montréal',  flag:'🇨🇦',lat:45.5, lon:-73.6,amt:89},
+  {city:'Tokyo',     flag:'🇯🇵',lat:35.7, lon:139.7,amt:299},
+  {city:'Paris',     flag:'🇫🇷',lat:48.8, lon:2.3,  amt:59},
+  {city:'New York',  flag:'🇺🇸',lat:40.7, lon:-74,  amt:129},
+  {city:'Sydney',    flag:'🇦🇺',lat:-33.8,lon:151.2,amt:49},
+  {city:'London',    flag:'🇬🇧',lat:51.5, lon:-0.1, amt:199},
+  {city:'Singapore', flag:'🇸🇬',lat:1.3,  lon:103.8,amt:79},
+  {city:'Dubai',     flag:'🇦🇪',lat:25.2, lon:55.3, amt:399},
+  {city:'São Paulo', flag:'🇧🇷',lat:-23.5,lon:-46.6,amt:39},
+];
+let idx=0,rev=0,ord=0;
+const revEl=document.getElementById('ss-rev');
+const ordEl=document.getElementById('ss-ord');
+const feedEl=document.getElementById('ss-feed-list');
+const toastLayer=document.getElementById('toast-layer');
+
+// Toast positions — left area of globe, scattered naturally
+const positions=[
+  {top:'12%',left:'8%'},{top:'55%',left:'5%'},
+  {top:'30%',left:'18%'},{top:'70%',left:'14%'},
+  {top:'20%',left:'42%'},{top:'62%',left:'38%'},
+  {top:'42%',left:'28%'},{top:'78%',left:'30%'},
+];
+let pi=0;
+
+function fire(){
+  const s=sales[idx++%sales.length];
+  rev+=s.amt; ord++;
+  if(revEl) revEl.textContent='$'+rev.toLocaleString('en-US');
+  if(ordEl) ordEl.textContent=ord;
+  if(window.addGlobeDot) window.addGlobeDot(s.lat,s.lon);
+
+  // feed
+  if(feedEl){
+    const el=document.createElement('div');
+    el.className='ss-feed-item new-item';
+    el.innerHTML=`<span class="ss-feed-city">${s.flag} ${s.city}</span><span class="ss-feed-amt">+$${s.amt}</span>`;
+    feedEl.insertBefore(el,feedEl.firstChild);
+    if(feedEl.children.length>3) feedEl.lastChild.remove();
+  }
+
+  // toast on globe
+  if(toastLayer){
+    const pos=positions[pi++%positions.length];
+    const t=document.createElement('div');
+    t.className='s-toast';
+    t.style.cssText=`top:${pos.top};left:${pos.left};`;
+    t.innerHTML=`<span class="st-flag">${s.flag}</span><span class="st-city">${s.city}</span><span class="st-amt">+$${s.amt}</span>`;
+    toastLayer.appendChild(t);
+    setTimeout(()=>{t.style.animation='tOut .4s ease forwards';setTimeout(()=>t.remove(),400);},3200);
+    const visible=toastLayer.querySelectorAll('.s-toast');
+    if(visible.length>3) visible[0].remove();
+  }
+}
+
+// count up customers
+function cu(el,to,dur){if(!el)return;const t0=performance.now(),from=Math.round(to*.5);const f=n=>{const p=Math.min((n-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(from+(to-from)*e);if(p<1)requestAnimationFrame(f);};requestAnimationFrame(f);}
+setTimeout(()=>cu(document.getElementById('ss-cust'),98,1200),700);
+
+setTimeout(fire,1400);
+setTimeout(fire,3000);
+setInterval(fire,3400);
+
+// ── TOOLS ──
+const tools=[
+  {name:'Claude',c:'#D97757',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M7 16.5l5-9 5 9M8.5 13.5h7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`},
+  {name:'Cursor',c:'#1a1a1a',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M12 3L3 21h18L12 3z"/><path d="M12 10l-4 11h8L12 10z" fill="#1a1a1a"/></svg>`},
+  {name:'Bolt',c:'#7c3aed',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`},
+  {name:'Lovable',c:'#f43f5e',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 18s-7-4.5-7-9a4 4 0 018 0 4 4 0 018 0c0 4.5-7 9-7 9z" fill="white"/></svg>`},
+  {name:'ChatGPT',c:'#10a37f',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="9"/></svg>`},
+  {name:'Replit',c:'#3b82f6',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M2 2h9v7H2V2zm0 7h9v6H2V9zm0 6h9v7H2v-7zm10-13h10v6H12V2zm0 7h10v6H12V9z"/></svg>`},
+];
+const ttEl=document.getElementById('tool-tags');
+if(ttEl){ttEl.style.cssText='display:flex;gap:6px;flex-wrap:wrap;justify-content:center;';ttEl.innerHTML=tools.map(t=>`<div class="tool-tag"><div class="tool-ic" style="background:${t.c};">${t.svg}</div>${t.name}</div>`).join('');}
+
 // ── REVEAL ──
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.07});
-document.querySelectorAll('.rv,.hc,.cmp-tr,.ba-step').forEach(el=>{
-  if(!el.classList.contains('rv'))el.classList.add('rv');
-  obs.observe(el);
-});
+document.querySelectorAll('.rv,.hc,.cmp-tr,.ba-step').forEach(el=>{if(!el.classList.contains('rv'))el.classList.add('rv');obs.observe(el);});
 </script>
 </body>
 </html>
