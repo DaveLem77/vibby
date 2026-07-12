@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibby — Transforme ton site en boutique</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2300C27C'/><path d='M8 10L16 22L24 10' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --g:#00C27C;--gd:#009960;--gl:#e8faf3;
+  --ink:#09110a;--ink2:#4a5d51;--ink3:#8fa898;
+  --line:#e6ece7;--line2:#cddacf;--w:#fff;--bg:#f6f7f6;
+  --danger:#e5484d;--warn:#f5a524;
+  --mono:'JetBrains Mono',monospace;
+}
+html,body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100%;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+::selection{background:rgba(0,194,124,.25);}
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;height:54px;padding:0 20px;display:flex;align-items:center;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);gap:14px;}
+.nlogo{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:800;letter-spacing:-.4px;}
+.nlogo-ic{width:26px;height:26px;background:var(--g);border-radius:7px;display:grid;place-items:center;flex-shrink:0;}
+.nlogo-ic svg{width:13px;height:13px;}
+.nav-back{font-size:12.5px;font-weight:600;color:var(--ink2);display:flex;align-items:center;gap:5px;padding:7px 12px;border-radius:7px;border:1.5px solid var(--line2);}
+.nav-back:hover{color:var(--ink);border-color:var(--ink3);}
+.nav-r{margin-left:auto;display:flex;align-items:center;gap:10px;position:relative;}
+.nav-user{display:flex;align-items:center;gap:8px;padding:6px 10px 6px 6px;border-radius:100px;border:1.5px solid var(--line2);font-size:12.5px;font-weight:600;color:var(--ink2);}
+.nav-user:hover{border-color:var(--ink3);}
+.nav-avatar{width:24px;height:24px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.nav-menu{position:absolute;top:44px;right:0;background:var(--w);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.12);min-width:190px;padding:6px;z-index:300;}
+.nav-menu-item{padding:9px 12px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink2);display:flex;align-items:center;gap:8px;}
+.nav-menu-item:hover{background:var(--bg);color:var(--ink);}
+.nav-menu-email{padding:9px 12px;font-size:11.5px;color:var(--ink3);border-bottom:1px solid var(--line);margin-bottom:4px;word-break:break-all;}
+/* SHELL */
+.shell{max-width:920px;margin:0 auto;padding:28px 16px 100px;}
+.shell-wide{max-width:1080px;}
+/* STEPPER */
+.stepper{display:flex;align-items:center;gap:0;margin-bottom:26px;overflow-x:auto;padding-bottom:2px;}
+.step-pill{display:flex;align-items:center;gap:7px;padding:7px 14px 7px 8px;border-radius:100px;font-size:12.5px;font-weight:700;color:var(--ink3);background:var(--w);border:1.5px solid var(--line);white-space:nowrap;flex-shrink:0;}
+.step-pill .n{width:18px;height:18px;border-radius:50%;background:var(--line);color:var(--w);display:grid;place-items:center;font-size:10px;flex-shrink:0;}
+.step-pill.active{color:var(--ink);border-color:var(--g);background:var(--gl);}
+.step-pill.active .n{background:var(--g);}
+.step-pill.done{color:var(--gd);}
+.step-pill.done .n{background:var(--g);}
+.step-sep{width:16px;height:1.5px;background:var(--line);flex-shrink:0;}
+/* CARD */
+.card{background:var(--w);border:1px solid var(--line);border-radius:16px;padding:26px;margin-bottom:16px;}
+.card-h{font-size:20px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px;}
+.card-sub{font-size:13.5px;color:var(--ink2);line-height:1.55;margin-bottom:18px;}
+.card-sub strong{color:var(--ink);}
+label.lbl{display:block;font-size:12px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px;}
+textarea,.tin,input[type=text],input[type=url],input[type=email],input[type=password]{width:100%;border:1.5px solid var(--line2);border-radius:10px;padding:12px 14px;font-size:13.5px;font-family:var(--mono);color:var(--ink);background:var(--bg);resize:vertical;transition:border-color .12s;}
+input[type=text]:not(.tin),input[type=url],input[type=email],input[type=password]{font-family:'Inter',sans-serif;}
+textarea:focus,input:focus{outline:none;border-color:var(--g);background:var(--w);}
+textarea#pasteArea{min-height:260px;line-height:1.5;}
+.intent-input{min-height:70px;}
+.field{margin-bottom:14px;}
+.field-err{font-size:11.5px;color:var(--danger);margin-top:5px;font-weight:600;min-height:14px;}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 22px;border-radius:9px;font-size:14px;font-weight:700;border:1.5px solid transparent;transition:all .13s;line-height:1;}
+.btn-g{background:var(--g);color:#fff;}
+.btn-g:hover{background:var(--gd);box-shadow:0 4px 16px rgba(0,194,124,.28);}
+.btn-g:disabled{background:var(--line2);color:var(--ink3);cursor:not-allowed;box-shadow:none;}
+.btn-out{color:var(--ink2);border-color:var(--line2);background:var(--w);}
+.btn-out:hover{color:var(--ink);border-color:var(--ink3);}
+.btn-block{width:100%;}
+.btn-sm{padding:7px 13px;font-size:12.5px;border-radius:7px;}
+.btn-google{background:#fff;color:#3c4043;border-color:var(--line2);}
+.btn-google:hover{border-color:var(--ink3);background:#f8f9fa;}
+.row-btns{display:flex;justify-content:space-between;gap:10px;margin-top:20px;}
+/* AUTH */
+.auth-wrap{min-height:calc(100vh - 54px);display:flex;align-items:center;justify-content:center;padding:40px 16px;}
+.auth-card{background:var(--w);border:1px solid var(--line);border-radius:18px;padding:34px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(9,17,10,.06);}
+.auth-logo{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:800;justify-content:center;margin-bottom:22px;}
+.auth-tabs{display:flex;background:var(--bg);border-radius:10px;padding:3px;margin-bottom:22px;}
+.auth-tab{flex:1;text-align:center;padding:9px;border-radius:8px;font-size:13px;font-weight:700;color:var(--ink3);}
+.auth-tab.active{background:var(--w);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.auth-title{font-size:19px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px;text-align:center;}
+.auth-sub{font-size:12.5px;color:var(--ink2);text-align:center;margin-bottom:20px;}
+.auth-divider{display:flex;align-items:center;gap:10px;margin:18px 0;font-size:11px;color:var(--ink3);font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--line);}
+.auth-forgot{text-align:right;font-size:12px;font-weight:600;color:var(--gd);margin-top:-8px;margin-bottom:14px;}
+.auth-switch{text-align:center;font-size:12.5px;color:var(--ink2);margin-top:18px;}
+.auth-switch a{color:var(--gd);font-weight:700;}
+.auth-msg{border-radius:10px;padding:11px 13px;font-size:12.5px;margin-bottom:16px;line-height:1.5;}
+.auth-msg.err{background:#fdecec;color:#c0282d;}
+.auth-msg.ok{background:var(--gl);color:var(--gd);}
+/* PROJECTS LIST */
+.projects-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.projects-head h1{font-size:26px;font-weight:900;letter-spacing:-1px;}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.pcard{background:var(--w);border:1px solid var(--line);border-radius:14px;padding:18px;transition:border-color .12s,transform .12s;}
+.pcard:hover{border-color:var(--g);transform:translateY(-2px);}
+.pcard-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.pcard-name{font-size:15.5px;font-weight:800;letter-spacing:-.3px;}
+.pcard-date{font-size:11px;color:var(--ink3);margin-top:2px;}
+.pcard-badge{font-size:10px;font-weight:700;background:var(--gl);color:var(--gd);padding:3px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:.3px;}
+.pcard-stats{display:flex;gap:14px;margin:12px 0;}
+.pcard-stat b{display:block;font-size:16px;font-weight:800;color:var(--ink);}
+.pcard-stat span{font-size:10px;color:var(--ink3);font-weight:600;text-transform:uppercase;}
+.pcard-actions{display:flex;gap:8px;margin-top:8px;}
+.empty-state{text-align:center;padding:70px 20px;color:var(--ink2);}
+.empty-state .ic{font-size:40px;margin-bottom:14px;}
+.empty-state h3{font-size:18px;font-weight:800;margin-bottom:6px;color:var(--ink);}
+.empty-state p{font-size:13.5px;margin-bottom:20px;}
+/* DASHBOARD */
+.dash-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.dash-title{display:flex;align-items:center;gap:10px;}
+.dash-title h1{font-size:24px;font-weight:900;letter-spacing:-.8px;}
+.dash-actions{display:flex;gap:8px;}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;}
+.kpi{background:var(--w);border:1px solid var(--line);border-radius:16px;padding:20px;position:relative;overflow:hidden;}
+.kpi-label{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.kpi-value{font-size:28px;font-weight:900;letter-spacing:-1px;color:var(--ink);}
+.kpi-trend{font-size:11.5px;font-weight:700;margin-top:6px;display:flex;align-items:center;gap:4px;}
+.kpi-trend.up{color:var(--gd);}
+.kpi-trend.flat{color:var(--ink3);}
+.kpi-accent{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g),transparent);}
+.dash-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;margin-bottom:16px;}
+.panel{background:var(--w);border:1px solid var(--line);border-radius:16px;padding:22px;}
+.panel-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.panel-h h3{font-size:14.5px;font-weight:800;letter-spacing:-.2px;}
+.panel-h .tag{font-size:10.5px;color:var(--ink3);font-weight:600;}
+.chart-wrap{height:220px;position:relative;}
+.top-product-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);}
+.top-product-row:last-child{border-bottom:none;}
+.tp-rank{width:20px;height:20px;border-radius:6px;background:var(--bg);color:var(--ink2);font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0;}
+.tp-name{flex:1;font-size:12.5px;font-weight:600;color:var(--ink);}
+.tp-bar-wrap{width:60px;height:5px;border-radius:3px;background:var(--bg);overflow:hidden;margin-right:4px;}
+.tp-bar{height:100%;background:var(--g);border-radius:3px;}
+.tp-count{font-size:12px;font-weight:800;color:var(--ink);min-width:22px;text-align:right;}
+.feed-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);}
+.feed-row:last-child{border-bottom:none;}
+.feed-ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:14px;flex-shrink:0;}
+.feed-ic.view{background:#eef2ff;}
+.feed-ic.cart{background:#fff4e5;}
+.feed-ic.pay{background:var(--gl);}
+.feed-txt{flex:1;font-size:12.5px;color:var(--ink2);}
+.feed-txt b{color:var(--ink);}
+.feed-time{font-size:11px;color:var(--ink3);white-space:nowrap;}
+.empty-mini{font-size:12px;color:var(--ink3);text-align:center;padding:30px 0;}
+@media(max-width:820px){
+  .kpi-row{grid-template-columns:1fr 1fr;}
+  .dash-grid{grid-template-columns:1fr;}
+}
+/* CHECK OPTIONS */
+.opt{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:1.5px solid var(--line);border-radius:12px;margin-bottom:10px;cursor:pointer;transition:border-color .12s,background .12s;}
+.opt:hover{border-color:var(--line2);}
+.opt.checked{border-color:var(--g);background:var(--gl);}
+.opt input{margin-top:2px;accent-color:var(--g);width:16px;height:16px;flex-shrink:0;}
+.opt-t{font-size:14px;font-weight:700;letter-spacing:-.2px;}
+.opt-d{font-size:12.5px;color:var(--ink2);margin-top:2px;line-height:1.5;}
+/* CALLOUT */
+.callout{border-radius:10px;padding:12px 14px;font-size:12.5px;line-height:1.6;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start;}
+.callout.info{background:var(--gl);border:1px solid rgba(0,194,124,.25);color:var(--gd);}
+.callout.warn{background:#fef6e7;border:1px solid rgba(245,165,36,.3);color:#9a6a0a;}
+.callout.security{background:#fdecec;border:1px solid rgba(229,72,77,.25);color:#c0282d;}
+.callout b{font-weight:700;}
+.callout-ic{flex-shrink:0;font-size:15px;line-height:1;}
+/* PRODUCT LIST */
+.plist{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.pitem{border:1.5px solid var(--line);border-radius:12px;padding:14px;display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;}
+.pitem.excluded{opacity:.45;}
+.pimg{width:52px;height:52px;border-radius:8px;object-fit:cover;background:var(--bg);border:1px solid var(--line);}
+.pimg-ph{width:52px;height:52px;border-radius:8px;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;font-size:18px;color:var(--ink3);}
+.pfields{display:grid;grid-template-columns:1fr 90px;gap:8px;}
+.pfields input{padding:8px 10px;font-size:12.5px;}
+.pfields .full{grid-column:1/-1;}
+.plink-row{display:flex;align-items:center;gap:6px;margin-top:6px;}
+.plink-row input{flex:1;font-size:11.5px;padding:7px 9px;}
+.pconf{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;text-transform:uppercase;letter-spacing:.3px;}
+.pconf.high{background:var(--gl);color:var(--gd);}
+.pconf.med{background:#fef6e7;color:#9a6a0a;}
+.pactions{display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.icbtn{width:30px;height:30px;border-radius:7px;border:1.5px solid var(--line);background:var(--w);display:grid;place-items:center;color:var(--ink2);flex-shrink:0;}
+.icbtn:hover{border-color:var(--danger);color:var(--danger);}
+.toggle-lbl{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--ink2);cursor:pointer;}
+.toggle-lbl input{accent-color:var(--g);width:14px;height:14px;}
+.linkhelp{font-size:10.5px;color:var(--ink3);margin-top:4px;}
+.linkhelp a{color:var(--gd);font-weight:600;}
+/* GENERATE / RESULT */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+.stat{border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center;background:var(--bg);}
+.stat b{display:block;font-size:22px;font-weight:800;color:var(--g);letter-spacing:-.5px;}
+.stat span{font-size:10.5px;color:var(--ink2);font-weight:600;text-transform:uppercase;letter-spacing:.3px;}
+.preview-wrap{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:16px;}
+.preview-bar{height:34px;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 12px;gap:6px;}
+.pdot{width:8px;height:8px;border-radius:50%;}
+.preview-tag{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--ink3);}
+iframe#previewFrame{width:100%;height:420px;border:none;display:block;background:#fff;}
+.code-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.tabbar{display:flex;gap:4px;margin-bottom:12px;border-bottom:1.5px solid var(--line);}
+.tab{padding:9px 14px;font-size:12.5px;font-weight:700;color:var(--ink3);border-bottom:2px solid transparent;margin-bottom:-1.5px;}
+.tab.active{color:var(--ink);border-color:var(--g);}
+.hidden{display:none !important;}
+.mini-note{font-size:11.5px;color:var(--ink3);margin-top:10px;line-height:1.6;}
+.copy-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .25s;z-index:999;pointer-events:none;}
+.copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+code.inline{font-family:var(--mono);background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px;}
+.spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@media(max-width:640px){
+  .stat-row{grid-template-columns:1fr 1fr;}
+  .pitem{grid-template-columns:44px 1fr;}
+  .pactions{grid-column:1/-1;flex-direction:row;justify-content:flex-end;border-top:1px solid var(--line);padding-top:8px;margin-top:4px;}
+  .pfields{grid-template-columns:1fr 80px;}
+  .card{padding:18px;}
+  iframe#previewFrame{height:320px;}
+  .row-btns{flex-wrap:wrap;}
+  .row-btns .btn{flex:1;justify-content:center;}
+  .kpi-row{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nlogo">
+    <div class="nlogo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>
+    vibby
+  </div>
+  <a href="index.html" class="nav-back">← Accueil</a>
+  <a href="#" class="nav-back hidden" id="navProjectsLink">Mes projets</a>
+  <div class="nav-r">
+    <a href="#" class="btn btn-out btn-sm hidden" id="navLoginBtn">Connexion</a>
+    <div class="nav-user hidden" id="navUserChip">
+      <div class="nav-avatar" id="navAvatar">?</div>
+      <span id="navEmail">...</span>
+    </div>
+    <div class="nav-menu hidden" id="navMenu">
+      <div class="nav-menu-email" id="navMenuEmail"></div>
+      <div class="nav-menu-item" id="navMenuProjects">📁 Mes projets</div>
+      <div class="nav-menu-item" id="navMenuLogout">🚪 Déconnexion</div>
+    </div>
+  </div>
+</nav>
+
+<!-- CONFIG MISSING -->
+<div class="auth-wrap hidden" id="screen-config">
+  <div class="auth-card" style="max-width:460px;">
+    <div class="auth-logo"><div class="nlogo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>vibby</div>
+    <div class="auth-title">Configuration requise</div>
+    <div class="auth-sub">Cette instance de Vibby n'est pas encore connectée à Supabase.</div>
+    <div class="callout warn">
+      <span class="callout-ic">⚙️</span>
+      <span>Ouvre <code class="inline">vibby-config.js</code> et remplis <code class="inline">SUPABASE_URL</code> et <code class="inline">SUPABASE_ANON_KEY</code> (guide complet en commentaire dans le fichier, et dans <code class="inline">vibby-supabase-schema.sql</code>).</span>
+    </div>
+    <div class="mini-note">C'est une configuration à faire une seule fois par la personne qui héberge Vibby — pas par chaque visiteur.</div>
+  </div>
+</div>
+
+<!-- AUTH SCREEN -->
+<div class="auth-wrap hidden" id="screen-auth">
+  <div class="auth-card">
+    <div class="auth-logo"><div class="nlogo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>vibby</div>
+
+    <div id="authMsg"></div>
+
+    <!-- login / signup -->
+    <div id="authFormWrap">
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-authtab="login">Connexion</div>
+        <div class="auth-tab" data-authtab="signup">Créer un compte</div>
+      </div>
+      <div class="auth-title" id="authTitle">Content de te revoir</div>
+      <div class="auth-sub" id="authSub">Connecte-toi pour retrouver tes sites</div>
+
+      <button class="btn btn-google btn-block" id="googleBtn" type="button">
+        <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.1 18.9 12 24 12c3.1 0 5.8 1.1 8 3l6-6C34.6 5.1 29.6 3 24 3c-7.7 0-14.3 4.3-17.7 11.7z"/><path fill="#4CAF50" d="M24 45c5.5 0 10.4-1.8 14.2-5l-6.6-5.4C29.5 36.5 26.9 37 24 37c-5.2 0-9.6-3.1-11.3-7.9l-6.6 5.1C9.6 40.5 16.3 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.2 5.6l6.6 5.4C41.5 36 44 30.5 44 24c0-1.2-.1-2.4-.4-3.5z"/></svg>
+        Continuer avec Google
+      </button>
+      <div class="auth-divider">ou</div>
+
+      <form id="authForm">
+        <div class="field">
+          <label class="lbl">Courriel</label>
+          <input type="email" id="authEmail" placeholder="toi@exemple.com" autocomplete="email" required>
+          <div class="field-err"></div>
+        </div>
+        <div class="field">
+          <label class="lbl">Mot de passe</label>
+          <input type="password" id="authPassword" placeholder="••••••••" autocomplete="current-password" required>
+          <div class="field-err"></div>
+        </div>
+        <div class="auth-forgot"><a href="#" id="forgotLink">Mot de passe oublié ?</a></div>
+        <button class="btn btn-g btn-block" id="authSubmitBtn" type="submit">Se connecter</button>
+      </form>
+      <div class="auth-switch" id="authSwitchLine">Pas encore de compte ? <a href="#" id="switchToSignup">Crée-en un</a></div>
+    </div>
+
+    <!-- forgot password -->
+    <div id="forgotFormWrap" class="hidden">
+      <div class="auth-title">Mot de passe oublié</div>
+      <div class="auth-sub">On t'envoie un lien de réinitialisation par courriel.</div>
+      <form id="forgotForm">
+        <div class="field">
+          <label class="lbl">Courriel</label>
+          <input type="email" id="forgotEmail" placeholder="toi@exemple.com" required>
+          <div class="field-err"></div>
+        </div>
+        <button class="btn btn-g btn-block" id="forgotSubmitBtn" type="submit">Envoyer le lien</button>
+      </form>
+      <div class="auth-switch"><a href="#" id="backToLogin">← Retour à la connexion</a></div>
+    </div>
+
+    <!-- set new password (after clicking recovery link) -->
+    <div id="resetFormWrap" class="hidden">
+      <div class="auth-title">Nouveau mot de passe</div>
+      <div class="auth-sub">Choisis un nouveau mot de passe pour ton compte.</div>
+      <form id="resetForm">
+        <div class="field">
+          <label class="lbl">Nouveau mot de passe</label>
+          <input type="password" id="resetPassword" placeholder="••••••••" minlength="6" required>
+          <div class="field-err"></div>
+        </div>
+        <button class="btn btn-g btn-block" id="resetSubmitBtn" type="submit">Mettre à jour le mot de passe</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS LIST -->
+<div class="shell shell-wide hidden" id="screen-projects">
+  <div class="projects-head">
+    <h1>Mes projets</h1>
+    <button class="btn btn-g" id="newProjectBtn">+ Nouveau site</button>
+  </div>
+  <div id="projectsLoading" class="empty-mini">Chargement de tes projets…</div>
+  <div class="projects-grid hidden" id="projectsGrid"></div>
+  <div class="empty-state hidden" id="projectsEmpty">
+    <div class="ic">🛍️</div>
+    <h3>Aucun site pour l'instant</h3>
+    <p>Colle le code d'un site généré par IA et transforme-le en boutique en 60 secondes.</p>
+    <button class="btn btn-g" id="newProjectBtnEmpty">+ Créer mon premier site</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="shell shell-wide hidden" id="screen-dashboard">
+  <div class="dash-head">
+    <div class="dash-title">
+      <h1 id="dashProjectName">Site</h1>
+    </div>
+    <div class="dash-actions">
+      <button class="btn btn-out btn-sm" id="dashEditBtn">✎ Modifier</button>
+      <button class="btn btn-out btn-sm" id="dashDownloadBtn">⬇ Télécharger</button>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-label">Revenu (30j)</div><div class="kpi-value" id="kpiRevenue">$0</div><div class="kpi-trend flat" id="kpiRevenueTrend">—</div><div class="kpi-accent"></div></div>
+    <div class="kpi"><div class="kpi-label">Commandes</div><div class="kpi-value" id="kpiOrders">0</div><div class="kpi-trend flat" id="kpiOrdersTrend">—</div><div class="kpi-accent"></div></div>
+    <div class="kpi"><div class="kpi-label">Visites</div><div class="kpi-value" id="kpiVisits">0</div><div class="kpi-trend flat" id="kpiVisitsTrend">—</div><div class="kpi-accent"></div></div>
+    <div class="kpi"><div class="kpi-label">Conversion</div><div class="kpi-value" id="kpiConversion">0%</div><div class="kpi-trend flat" id="kpiConversionTrend">—</div><div class="kpi-accent"></div></div>
+  </div>
+
+  <div class="dash-grid">
+    <div class="panel">
+      <div class="panel-h"><h3>Activité — 14 derniers jours</h3><span class="tag">Visites &amp; paiements</span></div>
+      <div class="chart-wrap"><canvas id="activityChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-h"><h3>Produits populaires</h3></div>
+      <div id="topProductsList"><div class="empty-mini">Pas encore de données.</div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-h"><h3>Activité récente</h3><span class="tag" id="feedLiveTag">en direct</span></div>
+    <div id="activityFeed"><div class="empty-mini">Pas encore d'activité — partage le lien de ton site pour commencer à voir des visites ici.</div></div>
+  </div>
+
+  <div class="callout info" style="margin-top:16px;">
+    <span class="callout-ic">🌐</span>
+    <span>Ces statistiques sont réelles et se mettent à jour automatiquement dès qu'un visiteur consulte ou achète sur ton site déployé — pas besoin de rafraîchir manuellement chaque appareil.</span>
+  </div>
+</div>
+
+<div class="shell hidden" id="screen-wizard">
+  <div class="stepper" id="stepper"></div>
+
+  <!-- STEP 1 : PASTE -->
+  <section class="card step-panel" id="step-1">
+    <div class="card-h">Colle le code de ton site</div>
+    <div class="card-sub">Le code HTML généré par <strong>Claude, Cursor, Bolt, Lovable</strong> ou autre — collé tel quel. Vibby ne le modifie qu'en local, dans ton navigateur.</div>
+    <label class="lbl">Code HTML</label>
+    <textarea id="pasteArea" placeholder="<!DOCTYPE html>
+<html>
+...colle ton code ici...
+</html>"></textarea>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:8px;">
+      <button class="btn btn-out btn-sm" id="loadExampleBtn">Essayer avec un exemple</button>
+      <span class="mini-note" id="pasteCount" style="margin:0;">0 caractères</span>
+    </div>
+    <div class="row-btns">
+      <span></span>
+      <button class="btn btn-g" id="toStep2" disabled>Continuer →</button>
+    </div>
+  </section>
+
+  <!-- STEP 2 : INTENT -->
+  <section class="card step-panel hidden" id="step-2">
+    <div class="card-h">Qu'est-ce que tu veux que Vibby fasse ?</div>
+    <div class="card-sub">Tout est activé par défaut. Décoche ce dont tu n'as pas besoin.</div>
+
+    <label class="opt checked" data-opt="detect">
+      <input type="checkbox" checked>
+      <div><div class="opt-t">🔍 Détecter les produits &amp; transformer les boutons</div><div class="opt-d">Vibby scanne ton code pour trouver les prix, images et boutons d'achat, et les convertit en vrais boutons fonctionnels.</div></div>
+    </label>
+    <label class="opt checked" data-opt="cart">
+      <input type="checkbox" checked>
+      <div><div class="opt-t">🛒 Ajouter un panier fonctionnel</div><div class="opt-d">Panier flottant avec ajout/suppression, quantités, sous-total — persisté dans le navigateur du visiteur.</div></div>
+    </label>
+    <label class="opt checked" data-opt="stripe">
+      <input type="checkbox" checked>
+      <div><div class="opt-t">💳 Activer le vrai paiement Stripe</div><div class="opt-d">Paiement réel, pas une simulation. Tu connectes ton propre compte Stripe à l'étape suivante.</div></div>
+    </label>
+    <label class="opt checked" data-opt="analytics">
+      <input type="checkbox" checked>
+      <div><div class="opt-t">📊 Ajouter le suivi (visites, paniers, ventes)</div><div class="opt-d">Statistiques réelles, envoyées à ton tableau de bord Vibby dès qu'un visiteur agit sur ton site.</div></div>
+    </label>
+
+    <label class="lbl" style="margin-top:18px;">Autre chose de précis ? (optionnel)</label>
+    <textarea class="intent-input" id="intentText" placeholder="Ex: mes prix sont en euros, j'ai 3 produits dans une grille en haut de page..."></textarea>
+
+    <div class="row-btns">
+      <button class="btn btn-out" id="toStep1b">← Retour</button>
+      <button class="btn btn-g" id="toStep3">Analyser mon code →</button>
+    </div>
+  </section>
+
+  <!-- STEP 3 : REVIEW PRODUCTS + STRIPE -->
+  <section class="card step-panel hidden" id="step-3">
+    <div class="card-h">Vibby a détecté <span id="detectCount">0</span> produit(s)</div>
+    <div class="card-sub">Vérifie et corrige si besoin — c'est de la détection par motifs (prix, images, boutons), pas magique à 100%. Tu peux aussi en ajouter un manuellement.</div>
+
+    <div id="noProductsMsg" class="callout warn hidden">
+      <span class="callout-ic">⚠️</span>
+      <span>Aucun produit détecté automatiquement. Ajoute-les manuellement avec le bouton ci-dessous, ou reviens en arrière pour vérifier ton code.</span>
+    </div>
+
+    <div class="plist" id="productList"></div>
+    <button class="btn btn-out btn-sm" id="addManualBtn">+ Ajouter un produit manuellement</button>
+
+    <div id="stripeSection" style="margin-top:24px;">
+      <div class="card-h" style="font-size:16px;">Connecter Stripe</div>
+      <div class="callout security">
+        <span class="callout-ic">🔒</span>
+        <span><b>Vibby ne demande jamais ta clé secrète Stripe.</b> On a seulement besoin de ta clé publique (commence par <code class="inline">pk_</code>) et d'un lien de paiement par produit — les deux sont sûrs à coller ici, rien n'est envoyé à un serveur, tout reste dans ton navigateur.</span>
+      </div>
+      <label class="lbl">Clé publique Stripe (pk_...)</label>
+      <input type="text" id="pubKeyInput" placeholder="pk_live_... ou pk_test_...">
+      <div class="linkhelp">Trouve-la dans ton <a href="https://dashboard.stripe.com/apikeys" target="_blank" rel="noopener">dashboard Stripe → Développeurs → Clés API</a>.</div>
+
+      <div class="callout info" style="margin-top:14px;">
+        <span class="callout-ic">💡</span>
+        <span>Pour chaque produit ci-dessus, crée un <b>Payment Link</b> dans Stripe (aucun code requis, ~1 min) puis colle l'URL dans le champ "Lien de paiement Stripe". <a href="https://dashboard.stripe.com/payment-links/create" target="_blank" rel="noopener">Créer un Payment Link →</a> Active "quantité modifiable" si tu veux permettre plusieurs unités.</span>
+      </div>
+    </div>
+
+    <div class="row-btns">
+      <button class="btn btn-out" id="toStep2b">← Retour</button>
+      <button class="btn btn-g" id="toStep4">Générer mon site →</button>
+    </div>
+  </section>
+
+  <!-- STEP 4 : RESULT -->
+  <section class="card step-panel hidden" id="step-4">
+    <div class="card-h">🎉 Ton site est prêt</div>
+    <div class="card-sub">Panier, boutons d'achat et suivi sont injectés directement dans ton code — colle-le où tu veux (Netlify, Vercel, GitHub Pages...). Il est aussi sauvegardé dans <b>Mes projets</b>.</div>
+
+    <div class="field" style="max-width:340px;">
+      <label class="lbl">Nom du projet</label>
+      <input type="text" id="projectNameInput" placeholder="Ma boutique">
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><b id="statProducts">0</b><span>Produits</span></div>
+      <div class="stat"><b id="statCart">—</b><span>Panier</span></div>
+      <div class="stat"><b id="statStripe">—</b><span>Paiement</span></div>
+      <div class="stat"><b id="statAnalytics">—</b><span>Suivi</span></div>
+    </div>
+
+    <div class="preview-wrap">
+      <div class="preview-bar">
+        <div class="pdot" style="background:#ff5f57;"></div><div class="pdot" style="background:#ffbd2e;"></div><div class="pdot" style="background:#28c840;"></div>
+        <span class="preview-tag">Aperçu en direct</span>
+      </div>
+      <iframe id="previewFrame"></iframe>
+    </div>
+
+    <div class="tabbar">
+      <div class="tab active" data-tab="code">Code final</div>
+      <div class="tab" data-tab="server">Serveur avancé (optionnel)</div>
+    </div>
+
+    <div id="tab-code">
+      <div class="code-actions">
+        <button class="btn btn-g btn-sm" id="saveProjectBtn">💾 Enregistrer dans mes projets</button>
+        <button class="btn btn-out btn-sm" id="downloadBtn">⬇ Télécharger le HTML</button>
+        <button class="btn btn-out btn-sm" id="copyBtn">Copier le code</button>
+        <button class="btn btn-out btn-sm" id="openPreviewBtn">Ouvrir dans un nouvel onglet</button>
+      </div>
+      <div class="mini-note">Héberge ce fichier n'importe où (Netlify, Vercel, GitHub Pages, ton propre serveur) — il n'a besoin d'aucun backend pour fonctionner. Le suivi des ventes/visites, lui, a besoin d'internet pour parler à ton tableau de bord Vibby (déjà branché).</div>
+    </div>
+
+    <div id="tab-server" class="hidden">
+      <div class="callout warn">
+        <span class="callout-ic">⚙️</span>
+        <span>Par défaut, un panier avec <b>plusieurs produits différents</b> se paie en plusieurs étapes (un Payment Link Stripe = un produit, c'est une limite de Stripe sans backend). Pour un <b>panier unifié en un seul paiement</b>, déploie ce petit serveur — ta clé secrète Stripe reste chez toi, jamais partagée avec Vibby.</span>
+      </div>
+      <div class="code-actions">
+        <button class="btn btn-out btn-sm" id="downloadServerBtn">⬇ Télécharger le code serveur (Node)</button>
+      </div>
+      <div class="mini-note">Déploie-le en 5 min sur Vercel/Render avec ta clé <code class="inline">STRIPE_SECRET_KEY</code> en variable d'environnement, puis colle l'URL de ton endpoint dans le fichier généré (constante <code class="inline">VIBBY_CHECKOUT_ENDPOINT</code>).</div>
+    </div>
+
+    <div class="row-btns">
+      <button class="btn btn-out" id="toStep3b">← Retour</button>
+      <button class="btn btn-out" id="startOverBtn">Recommencer</button>
+    </div>
+  </section>
+</div>
+
+<div class="copy-toast" id="copyToast">Copié !</div>
+
+<script src="vibby-config.js"></script>
+<script src="vibby-auth.js"></script>
+<script src="vibby-dashboard.js"></script>
+<script src="vibby-engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibby — Shopify-Level Commerce for AI-Built Websites</title>
+<meta name="description" content="Vibby turns any AI-built website into a full commerce store in 60 seconds. Add orders, products, customers and analytics to sites built with Claude, Cursor, Bolt or Lovable. No backend, no templates, no code.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vibby.io/">
+<meta property="og:title" content="Vibby — Shopify-Level Commerce for AI-Built Websites">
+<meta property="og:description" content="Turn your AI-built website into a full store in 60 seconds. No backend required.">
+<meta property="og:image" content="https://vibby.io/og-image.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2300C27C'/><path d='M8 10L16 22L24 10' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>">
+<meta name="theme-color" content="#00C27C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Vibby","url":"https://vibby.io","description":"Commerce platform for AI-built websites","applicationCategory":"BusinessApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --g:#00C27C;--gd:#009960;
+  --ink:#09110a;--ink2:#4a5d51;--ink3:#8fa898;
+  --line:#e6ece7;--line2:#cddacf;--w:#fff;--bg:#f6f7f6;
+}
+html,body{font-family:'Inter',sans-serif;background:var(--w);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+/* NAV */
+.nav{position:fixed;inset:0 0 auto;z-index:100;height:54px;padding:0 24px;display:flex;align-items:center;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);}
+.nlogo{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:800;letter-spacing:-.4px;}
+.nlogo-ic{width:28px;height:28px;background:var(--g);border-radius:7px;display:grid;place-items:center;}
+.nlogo-ic svg{width:14px;height:14px;}
+.nav-r{margin-left:auto;display:flex;gap:8px;}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid transparent;font-family:inherit;transition:all .14s;white-space:nowrap;text-decoration:none;line-height:1;}
+.btn-out{color:var(--ink2);border-color:var(--line2);}
+.btn-out:hover{color:var(--ink);border-color:var(--ink3);}
+.btn-g{background:var(--g);color:#fff;}
+.btn-g:hover{background:var(--gd);box-shadow:0 4px 18px rgba(0,194,124,.3);}
+.btn-xl{padding:14px 32px;font-size:15px;border-radius:10px;font-weight:700;display:inline-flex;align-items:center;gap:7px;text-decoration:none;cursor:pointer;border:none;font-family:inherit;}
+.btn-xl-out{padding:13px 28px;font-size:15px;border-radius:10px;font-weight:600;color:var(--ink2);border:1.5px solid var(--line2);background:transparent;display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:inherit;transition:all .14s;text-decoration:none;}
+.btn-xl-out:hover{color:var(--ink);border-color:var(--ink3);}
+/* HERO */
+.hero{padding:100px 24px 0;text-align:center;background:var(--w);}
+.hero-in{max-width:800px;margin:0 auto;}
+.h-a{opacity:0;transform:translateY(22px);animation:hIn .7s cubic-bezier(.16,1,.3,1) forwards;}
+.d1{animation-delay:.05s;}.d2{animation-delay:.16s;}.d3{animation-delay:.27s;}.d4{animation-delay:.37s;}.d5{animation-delay:.46s;}.d6{animation-delay:.53s;}
+@keyframes hIn{to{opacity:1;transform:none;}}
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(0,194,124,.08);border:1px solid rgba(0,194,124,.2);border-radius:100px;padding:5px 13px 5px 9px;font-size:12px;font-weight:600;color:var(--gd);margin-bottom:22px;}
+.chip-dot{width:6px;height:6px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(0,194,124,.55);}50%{box-shadow:0 0 0 5px rgba(0,194,124,0);}}
+h1{font-size:clamp(44px,7.5vw,96px);font-weight:900;letter-spacing:-4px;line-height:.92;color:var(--ink);margin-bottom:20px;}
+h1 .g{background:linear-gradient(135deg,#009960,#00C27C 45%,#22d68d);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero-sub{font-size:clamp(15px,1.7vw,18px);color:var(--ink2);line-height:1.6;max-width:460px;margin:0 auto 32px;}
+.hero-sub strong{color:var(--ink);font-weight:600;}
+.hero-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+.hero-fine{font-size:12px;color:var(--ink3);margin-bottom:48px;}
+/* ── COMMERCE SCENE ── */
+.scene{
+  max-width:900px;margin:0 auto;
+  position:relative;
+  background:#09110a;
+  border-radius:20px;overflow:hidden;
+  box-shadow:0 2px 0 rgba(255,255,255,.06) inset,0 24px 80px rgba(0,0,0,.2),0 60px 120px rgba(0,0,0,.1);
+}
+/* top bar */
+.scene-bar{
+  height:40px;background:#0e1710;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;padding:0 16px;gap:6px;
+}
+.sc-dots{display:flex;gap:5px;}
+.sc-dot{width:10px;height:10px;border-radius:50%;}
+.sc-url{flex:1;max-width:220px;margin:0 auto;height:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:5px;display:flex;align-items:center;padding:0 9px;gap:5px;}
+.sc-url-g{width:6px;height:6px;border-radius:50%;background:var(--g);}
+.sc-url-t{font-size:10px;color:rgba(255,255,255,.3);font-family:monospace;}
+.sc-live{display:flex;align-items:center;gap:4px;background:rgba(0,194,124,.1);border:1px solid rgba(0,194,124,.2);border-radius:100px;padding:3px 10px;margin-left:auto;}
+.sc-ld{width:5px;height:5px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
+.sc-lt{font-size:10px;font-weight:600;color:#4ade80;}
+/* main layout: globe left + stats right */
+.scene-body{display:grid;grid-template-columns:1fr 220px;min-height:360px;}
+/* globe area */
+.scene-globe{position:relative;overflow:hidden;background:#09110a;}
+.scene-globe canvas{display:block;width:100%;height:100%;}
+/* toasts over globe */
+.toast-layer{position:absolute;inset:0;pointer-events:none;}
+.s-toast{
+  position:absolute;
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(9,17,10,.88);
+  border:1px solid rgba(0,194,124,.22);
+  border-radius:10px;padding:8px 14px;
+  backdrop-filter:blur(10px);
+  animation:tIn .4s cubic-bezier(.16,1,.3,1) forwards;
+  white-space:nowrap;
+}
+@keyframes tIn{from{opacity:0;transform:translateY(8px) scale(.95);}to{opacity:1;transform:none;}}
+@keyframes tOut{to{opacity:0;transform:scale(.95);}}
+.st-flag{font-size:14px;line-height:1;}
+.st-city{font-size:12px;font-weight:600;color:rgba(255,255,255,.75);}
+.st-amt{font-size:13px;font-weight:800;color:var(--g);}
+/* stats panel right */
+.scene-stats{
+  border-left:1px solid rgba(255,255,255,.07);
+  display:flex;flex-direction:column;
+}
+.ss-head{
+  padding:16px 18px 12px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  flex-shrink:0;
+}
+.ss-head-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.ss-head-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
+.ss-rev{font-size:32px;font-weight:800;color:var(--g);letter-spacing:-1.5px;line-height:1;}
+.ss-rev-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:4px;}
+.ss-dash-chip{font-size:9px;font-weight:700;color:rgba(0,194,124,.85);background:rgba(0,194,124,.1);border:1px solid rgba(0,194,124,.22);border-radius:100px;padding:3px 8px;white-space:nowrap;flex-shrink:0;}
+.ss-spark{margin-top:8px;width:100%;height:28px;display:block;}
+/* stat rows — mirrors the real Vibby dashboard's KPI cards */
+.ss-stats{padding:14px 18px;display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1;}
+.ss-stat{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:9px 10px 11px;position:relative;overflow:hidden;}
+.ss-stat-l{font-size:9px;font-weight:700;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.ss-stat-v{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.6px;line-height:1;}
+.ss-stat-t{font-size:9.5px;color:rgba(255,255,255,.25);margin-top:4px;}
+.ss-stat-t.up{color:rgba(0,194,124,.7);}
+.ss-stat::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--g),transparent);}
+/* live feed — same icon-bubble language as the real dashboard's activity feed */
+.ss-feed{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:12px 18px;flex-shrink:0;
+}
+.ss-feed-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.ss-feed-dot{width:5px;height:5px;border-radius:50%;background:var(--g);animation:glow 2s infinite;}
+.ss-feed-item{display:flex;align-items:center;gap:8px;padding:5px 0;}
+.ss-feed-ic{width:20px;height:20px;border-radius:6px;background:rgba(0,194,124,.12);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
+.ss-feed-city{flex:1;font-size:11px;font-weight:500;color:rgba(255,255,255,.5);}
+.ss-feed-amt{font-size:11px;font-weight:700;color:rgba(0,194,124,.8);}
+.ss-feed-item.new-item{animation:tIn .3s ease;}
+/* SECTIONS */
+.tools-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;}
+.tools-label{font-size:12px;font-weight:500;color:var(--ink3);white-space:nowrap;}
+.tool-tag{display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--line);border-radius:100px;padding:5px 13px 5px 7px;font-size:12px;font-weight:600;color:var(--ink2);white-space:nowrap;transition:border-color .12s;}
+.tool-tag:hover{border-color:var(--ink3);}
+.tool-ic{width:20px;height:20px;border-radius:5px;display:grid;place-items:center;flex-shrink:0;}
+.sec{padding:80px 24px;border-bottom:1px solid var(--line);}
+.gray{background:var(--bg);}
+.dark-sec{background:var(--ink);color:#fff;padding:80px 24px;border-top:1px solid rgba(255,255,255,.06);}
+.sec-in{max-width:1000px;margin:0 auto;}
+.sec-in-sm{max-width:700px;margin:0 auto;}
+.sec-ey{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
+.dark-sec .sec-ey{color:rgba(255,255,255,.3);}
+.sec-h{font-size:clamp(30px,4.5vw,52px);font-weight:900;letter-spacing:-2px;line-height:.97;}
+/* HOW */
+.how-head{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:end;margin-bottom:36px;}
+.how-p{font-size:15px;color:var(--ink2);line-height:1.65;}
+.how-cols{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.hc{background:var(--w);padding:26px 22px;border-right:1px solid var(--line);transition:background .14s;}
+.hc:last-child{border-right:none;}
+.hc:hover{background:var(--bg);}
+.hc-n{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+.hc-n::after{content:'';flex:1;height:1px;background:var(--line);}
+.hc-ic{width:36px;height:36px;border:1px solid var(--line);border-radius:9px;background:var(--bg);display:grid;place-items:center;margin-bottom:12px;}
+.hc-ic svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;}
+.hc-t{font-size:15px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px;}
+.hc-d{font-size:12px;color:var(--ink2);line-height:1.6;}
+.hc-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:12px;}
+.hc-pill{font-size:10px;font-weight:500;color:var(--ink2);background:var(--bg);border:1px solid var(--line);border-radius:100px;padding:2px 8px;}
+/* BEFORE/AFTER */
+.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-top:40px;}
+.ba-col{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;}
+.ba-hd{padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.07);}
+.ba-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:3px 9px;border-radius:100px;}
+.ba-tag.b{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.2);}
+.ba-tag.a{background:rgba(0,194,124,.12);color:#4ade80;border:1px solid rgba(0,194,124,.2);}
+.ba-body{padding:16px 18px;}
+.ba-step{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.ba-step:last-child{border-bottom:none;}
+.ba-ic{font-size:14px;flex-shrink:0;width:20px;text-align:center;}
+.ba-t{font-size:12px;font-weight:500;color:rgba(255,255,255,.75);line-height:1.4;}
+.ba-s{font-size:10px;color:rgba(255,255,255,.28);margin-top:2px;}
+.ba-arr{padding:0 24px;}
+.ba-arr-ic{width:44px;height:44px;background:var(--g);border-radius:50%;display:grid;place-items:center;box-shadow:0 0 24px rgba(0,194,124,.3);}
+/* MISSION */
+.mission-in{max-width:600px;margin:0 auto;text-align:center;}
+.mission-h{font-size:clamp(26px,4vw,44px);font-weight:900;letter-spacing:-1.5px;line-height:1.05;color:#fff;margin-bottom:16px;}
+.mission-h em{color:var(--g);font-style:normal;}
+.mission-p{font-size:16px;color:rgba(255,255,255,.45);line-height:1.7;}
+/* COMPARE */
+.cmp-philo{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:32px;margin-bottom:12px;}
+.cp{background:var(--w);padding:28px 26px;}
+.cp.vibby{background:rgba(0,194,124,.04);}
+.cp-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;color:var(--ink3);}
+.cp.vibby .cp-tag{color:var(--gd);}
+.cp-h{font-size:17px;font-weight:800;letter-spacing:-.3px;margin-bottom:6px;}
+.cp-p{font-size:13px;color:var(--ink2);line-height:1.55;}
+.cmp-t{border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.cmp-th{display:grid;grid-template-columns:1.6fr 1fr 1fr;background:var(--bg);border-bottom:1px solid var(--line);}
+.cmp-th div{padding:10px 18px;font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.4px;}
+.cmp-th .hi{color:var(--g);}
+.cmp-tr{display:grid;grid-template-columns:1.6fr 1fr 1fr;border-bottom:1px solid var(--line);transition:background .1s;}
+.cmp-tr:last-child{border-bottom:none;}
+.cmp-tr:hover{background:var(--bg);}
+.cmp-tr div{padding:12px 18px;font-size:13px;color:var(--ink2);display:flex;align-items:center;}
+.cmp-tr div:first-child{font-weight:600;color:var(--ink);}
+.yes{color:var(--g);font-weight:700;}
+.nope{color:var(--ink3);}
+/* QUOTE */
+.quote{padding:64px 24px;border-bottom:1px solid var(--line);text-align:center;}
+.q-in{max-width:560px;margin:0 auto;}
+.q-t{font-size:clamp(17px,2.2vw,22px);font-weight:700;color:var(--ink);line-height:1.4;letter-spacing:-.2px;margin-bottom:14px;}
+.q-t em{color:var(--g);font-style:normal;}
+.q-a{font-size:12px;color:var(--ink3);}
+/* CTA */
+.cta{padding:100px 24px;text-align:center;background:var(--bg);}
+.cta-in{max-width:480px;margin:0 auto;}
+.cta h2{font-size:clamp(34px,5.5vw,60px);font-weight:900;letter-spacing:-2.5px;line-height:.95;margin-bottom:14px;}
+.cta h2 .g{background:linear-gradient(135deg,#009960,#00C27C 45%,#22d68d);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.cta p{font-size:16px;color:var(--ink2);margin-bottom:28px;line-height:1.55;}
+.cta-fine{font-size:12px;color:var(--ink3);margin-top:12px;}
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:20px 24px;}
+.fi{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.fl{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:800;}
+.flic{width:20px;height:20px;background:var(--g);border-radius:5px;display:grid;place-items:center;}
+.flic svg{width:10px;height:10px;}
+.fc_{font-size:12px;color:var(--ink3);}
+.fls{display:flex;gap:18px;}
+.fls a{font-size:12px;color:var(--ink3);transition:color .12s;}
+.fls a:hover{color:var(--ink);}
+/* REVEAL */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease;}
+.rv.in{opacity:1;transform:none;}
+/* MOBILE */
+@media(max-width:680px){
+  h1{letter-spacing:-2.5px;}
+  .btn-xl,.btn-xl-out{padding:12px 20px;font-size:14px;}
+  .scene-body{grid-template-columns:1fr;}
+  .scene-stats{border-left:none;border-top:1px solid rgba(255,255,255,.07);flex-direction:row;flex-wrap:wrap;}
+  .ss-head{border-right:1px solid rgba(255,255,255,.07);border-bottom:none;min-width:140px;}
+  .ss-stats{flex-direction:row;flex-wrap:wrap;padding:12px;gap:10px;flex:1;}
+  .ss-stat{min-width:80px;}
+  .ss-feed{display:none;}
+  .how-head{grid-template-columns:1fr;gap:12px;margin-bottom:24px;}
+  .how-cols{grid-template-columns:1fr 1fr;}
+  .hc{border-right:none;border-bottom:1px solid var(--line);}
+  .hc:nth-child(odd){border-right:1px solid var(--line);}
+  .hc:nth-last-child(-n+2){border-bottom:none;}
+  .ba-grid{grid-template-columns:1fr;gap:12px;}
+  .ba-arr{transform:rotate(90deg);display:flex;justify-content:center;padding:12px 0;}
+  .cmp-philo{grid-template-columns:1fr;}
+  .cmp-th,.cmp-tr{grid-template-columns:1.3fr 1fr 1fr;}
+  .cmp-th div,.cmp-tr div{padding:9px 10px;font-size:11px;}
+  .fi{flex-direction:column;gap:10px;text-align:center;}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" style="position:absolute;left:-9999px;top:4px;z-index:999;padding:8px 16px;background:var(--g);color:#fff;font-weight:600;border-radius:6px;font-size:13px;text-decoration:none;">Skip to content</a>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nlogo">
+    <div class="nlogo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>
+    vibby
+  </div>
+  <div class="nav-r">
+    <a href="vibby.html" class="btn btn-out">Log in</a>
+    <a href="vibby.html" class="btn btn-g">Start free →</a>
+  </div>
+</nav>
+<main id="main-content">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-in">
+    <div class="chip h-a d1"><span class="chip-dot"></span>Commerce for AI-built websites</div>
+    <h1 class="h-a d2">Build with AI.<br><span class="g">Sell for real.</span></h1>
+    <p class="hero-sub h-a d3">You built something great with Claude or Cursor. Now sell from it. <strong>Vibby adds Shopify-level commerce to any AI-built website</strong> — no backend, no templates.</p>
+    <div class="hero-btns h-a d4">
+      <a href="vibby.html" class="btn btn-g btn-xl">Launch your store →</a>
+      <a href="#how" class="btn-xl-out">See how it works</a>
+    </div>
+    <div class="hero-fine h-a d5">Free · No credit card · Works with any HTML</div>
+    <!-- COMMERCE SCENE -->
+    <div class="scene h-a d6">
+      <div class="scene-bar">
+        <div class="sc-dots">
+          <div class="sc-dot" style="background:#ff5f57;"></div>
+          <div class="sc-dot" style="background:#ffbd2e;"></div>
+          <div class="sc-dot" style="background:#28c840;"></div>
+        </div>
+        <div class="sc-url"><div class="sc-url-g"></div><span class="sc-url-t">app.vibby.io</span></div>
+        <div class="sc-live"><span class="sc-ld"></span><span class="sc-lt">Live</span></div>
+      </div>
+      <div class="scene-body">
+        <!-- GLOBE -->
+        <div class="scene-globe">
+          <canvas id="globe-canvas"></canvas>
+          <div class="toast-layer" id="toast-layer"></div>
+        </div>
+        <!-- STATS -->
+        <div class="scene-stats">
+          <div class="ss-head">
+            <div class="ss-head-top">
+              <div>
+                <div class="ss-head-label">Revenue today</div>
+                <div class="ss-rev" id="ss-rev">$0</div>
+                <div class="ss-rev-sub">↑ live · updating</div>
+              </div>
+              <span class="ss-dash-chip">Aperçu du dashboard</span>
+            </div>
+            <svg class="ss-spark" id="ss-spark" viewBox="0 0 220 28" preserveAspectRatio="none"></svg>
+          </div>
+          <div class="ss-stats">
+            <div class="ss-stat">
+              <div class="ss-stat-l">Orders</div>
+              <div class="ss-stat-v" id="ss-ord">0</div>
+              <div class="ss-stat-t up">today</div>
+            </div>
+            <div class="ss-stat">
+              <div class="ss-stat-l">Customers</div>
+              <div class="ss-stat-v" id="ss-cust">98</div>
+              <div class="ss-stat-t up">↑ +12 this week</div>
+            </div>
+            <div class="ss-stat">
+              <div class="ss-stat-l">Conversion</div>
+              <div class="ss-stat-v">3.8%</div>
+              <div class="ss-stat-t">avg 1.2%</div>
+            </div>
+            <div class="ss-stat">
+              <div class="ss-stat-l">Avg. order</div>
+              <div class="ss-stat-v">$87</div>
+              <div class="ss-stat-t">this month</div>
+            </div>
+          </div>
+          <div class="ss-feed">
+            <div class="ss-feed-label"><span class="ss-feed-dot"></span>Activité récente</div>
+            <div id="ss-feed-list">
+              <div class="ss-feed-item"><span class="ss-feed-ic">💳</span><span class="ss-feed-city">🇩🇪 Berlin</span><span class="ss-feed-amt">+$149</span></div>
+              <div class="ss-feed-item"><span class="ss-feed-ic">💳</span><span class="ss-feed-city">🇨🇦 Montréal</span><span class="ss-feed-amt">+$89</span></div>
+              <div class="ss-feed-item"><span class="ss-feed-ic">💳</span><span class="ss-feed-city">🇯🇵 Tokyo</span><span class="ss-feed-amt">+$299</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- TOOLS STRIP -->
+<div class="tools-strip rv">
+  <span class="tools-label">Works with</span>
+  <div id="tool-tags"></div>
+  <span class="tools-label" style="color:var(--ink2);">and any HTML output.</span>
+</div>
+<!-- HOW -->
+<section class="sec rv" id="how">
+  <div class="sec-in">
+    <div class="how-head">
+      <div><div class="sec-ey">How it works</div><h2 class="sec-h">Four steps to revenue.</h2></div>
+      <p class="how-p">From AI-built idea to live commerce in 60 seconds. No backend, no devops, no compromises on your design.</p>
+    </div>
+    <div class="how-cols">
+      <div class="hc"><div class="hc-n">01</div><div class="hc-ic"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="hc-t">Build with AI</div><div class="hc-d">Design your site with Claude, Cursor or Bolt. Any HTML output works.</div><div class="hc-pills"><span class="hc-pill">Claude</span><span class="hc-pill">Cursor</span><span class="hc-pill">Bolt</span></div></div>
+      <div class="hc"><div class="hc-n">02</div><div class="hc-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="hc-t">Paste into Vibby</div><div class="hc-d">Commerce injects automatically — products, checkout, emails. Zero code.</div><div class="hc-pills"><span class="hc-pill">1 click</span><span class="hc-pill">No backend</span></div></div>
+      <div class="hc"><div class="hc-n">03</div><div class="hc-ic"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="hc-t">Go live anywhere</div><div class="hc-d">Drop on Netlify, GitHub Pages, or Vercel. Live in 60 seconds.</div><div class="hc-pills"><span class="hc-pill">Netlify</span><span class="hc-pill">Vercel</span><span class="hc-pill">GitHub</span></div></div>
+      <div class="hc"><div class="hc-n">04</div><div class="hc-ic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="hc-t">Manage everything</div><div class="hc-d">Orders, customers, analytics. A full commerce backend, yours.</div><div class="hc-pills"><span class="hc-pill">Orders</span><span class="hc-pill">Customers</span><span class="hc-pill">Analytics</span></div></div>
+    </div>
+  </div>
+</section>
+<!-- BEFORE / AFTER -->
+<section class="dark-sec rv">
+  <div class="sec-in">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div class="sec-ey">The difference</div>
+      <h2 class="sec-h" style="color:#fff;">Your design.<br><span style="color:var(--g);">Your rules.</span></h2>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-col"><div class="ba-hd"><span class="ba-tag b">Without Vibby</span></div><div class="ba-body">
+        <div class="ba-step"><div class="ba-ic">🎨</div><div><div class="ba-t">Build with AI — beautiful site</div><div class="ba-s">Claude, Cursor, Bolt</div></div></div>
+        <div class="ba-step"><div class="ba-ic">😩</div><div><div class="ba-t">Want to add a buy button</div><div class="ba-s">Stripe docs, webhooks, Node.js...</div></div></div>
+        <div class="ba-step"><div class="ba-ic">😤</div><div><div class="ba-t">Force your design into Shopify</div><div class="ba-s">Their templates. Their constraints.</div></div></div>
+      </div></div>
+      <div class="ba-arr"><div class="ba-arr-ic"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+      <div class="ba-col"><div class="ba-hd"><span class="ba-tag a">With Vibby</span></div><div class="ba-body">
+        <div class="ba-step"><div class="ba-ic">🎨</div><div><div class="ba-t">Build with AI — beautiful site</div><div class="ba-s">Claude, Cursor, Bolt</div></div></div>
+        <div class="ba-step"><div class="ba-ic">⚡</div><div><div class="ba-t">Paste into Vibby — commerce injects</div><div class="ba-s">Products, checkout, emails. Done.</div></div></div>
+        <div class="ba-step"><div class="ba-ic">💰</div><div><div class="ba-t">Your design. Your commerce. Yours.</div><div class="ba-s">Live in 60 seconds, anywhere.</div></div></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+<!-- MISSION -->
+<section class="sec rv" style="border-bottom:1px solid var(--line);">
+  <div class="mission-in" style="max-width:600px;margin:0 auto;text-align:center;">
+    <div class="sec-ey" style="text-align:center;">Why Vibby exists</div>
+    <h2 class="sec-h" style="text-align:center;margin-bottom:16px;">Millions of websites are built with AI.<br>Commerce wasn't. <span style="color:var(--g);">Vibby is.</span></h2>
+    <p style="font-size:16px;color:var(--ink2);line-height:1.7;">Shopify was built for a world where you hire developers. Vibby was built for a world where you build with AI in an afternoon — and sell by evening.</p>
+  </div>
+</section>
+<!-- COMPARE -->
+<section class="sec gray rv">
+  <div class="sec-in-sm">
+    <div class="sec-ey">Vibby vs Shopify</div>
+    <h2 class="sec-h" style="margin-bottom:0;">Two philosophies.</h2>
+    <div class="cmp-philo">
+      <div class="cp"><div class="cp-tag">Shopify</div><div class="cp-h">You build inside their system.</div><div class="cp-p">Their templates. Their checkout. Their constraints. Your vision adapts to fit their box.</div></div>
+      <div class="cp vibby"><div class="cp-tag">✦ Vibby</div><div class="cp-h">Your system. Your design. Your rules.</div><div class="cp-p">Build exactly what you imagine with AI. Commerce is the layer — not the constraint.</div></div>
+    </div>
+    <div class="cmp-t">
+      <div class="cmp-th"><div></div><div class="hi">✦ Vibby</div><div>Shopify</div></div>
+      <div class="cmp-tr"><div>Design freedom</div><div class="yes">Unlimited</div><div class="nope">Templates</div></div>
+      <div class="cmp-tr"><div>Setup time</div><div class="yes">60 seconds</div><div class="nope">Hours</div></div>
+      <div class="cmp-tr"><div>Works with AI tools</div><div class="yes">Native</div><div class="nope">No</div></div>
+      <div class="cmp-tr"><div>Backend required</div><div class="yes">None</div><div class="nope">Yes</div></div>
+      <div class="cmp-tr"><div>Starting price</div><div class="yes">Free</div><div class="nope">$39/mo</div></div>
+    </div>
+  </div>
+</section>
+<!-- QUOTE -->
+<section class="quote rv">
+  <div class="q-in">
+    <div class="q-t">"Built my store in Claude one afternoon. Vibby made it sellable by evening. <em>Never touched a template.</em>"</div>
+    <div class="q-a">— Alex T., indie developer</div>
+  </div>
+</section>
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-in rv">
+    <h2>Your design.<br><span class="g">Your commerce.</span></h2>
+    <p>Free to start. No backend. Just paste your HTML and sell.</p>
+    <a href="vibby.html" class="btn btn-g btn-xl">Launch your store for free →</a>
+    <div class="cta-fine">Free · No credit card · Works with Claude, Cursor, Bolt and more</div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="fi">
+    <div class="fl"><div class="flic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M5 8L12 16L19 8"/></svg></div>vibby</div>
+    <div class="fc_">© 2026 Vibby · Commerce platform for AI-built websites</div>
+    <div class="fls"><a href="#">Privacy</a><a href="#">Terms</a><a href="vibby.html">App →</a></div>
+  </div>
+</footer>
+<script>
+// ── GLOBE (D3 orthographic + Natural Earth TopoJSON) ──
+(function(){
+  const gc = document.getElementById('globe-canvas');
+  if(!gc) return;
+  const ctx = gc.getContext('2d');
+  let W=0,H=0,CX=0,CY=0,R=0;
+  let rotation = 0;
+  const dots = [];
+  function resize(){
+    const wrap = gc.parentElement;
+    if(!wrap||!wrap.offsetWidth||!wrap.offsetHeight) return;
+    W = gc.width  = wrap.offsetWidth;
+    H = gc.height = wrap.offsetHeight;
+    CX = W/2; CY = H/2;
+    R  = Math.min(W,H)/2 - 4;
+  }
+  // --- D3-style orthographic projection from scratch ---
+  function project(lon, lat) {
+    // rotate longitude
+    const lam = (lon + rotation * 180 / Math.PI) * Math.PI / 180;
+    const phi = lat * Math.PI / 180;
+    const x = Math.cos(phi) * Math.cos(lam);
+    const y = Math.cos(phi) * Math.sin(lam);
+    const z = Math.sin(phi);
+    // orthographic: only front hemisphere
+    if (x < -0.01) return null;
+    return {
+      sx: CX + R * y,
+      sy: CY - R * z,
+      visible: x >= -0.01
+    };
+  }
+  // Draw a GeoJSON geometry (LineString or Polygon ring) on canvas
+  function drawRing(coords) {
+    if(!coords||coords.length<2) return;
+    let started = false;
+    for(let i=0;i<coords.length;i++){
+      const p = project(coords[i][0], coords[i][1]);
+      if(!p){ started=false; continue; }
+      if(!started){ ctx.moveTo(p.sx,p.sy); started=true; }
+      else ctx.lineTo(p.sx,p.sy);
+    }
+  }
+  let land = null;   // GeoJSON FeatureCollection of land polygons
+  let loaded = false;
+  // Load world topojson from CDN
+  function loadMap(){
+    const script1 = document.createElement('script');
+    script1.src = 'https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js';
+    script1.onload = () => {
+      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+        .then(r=>r.json())
+        .then(world=>{
+          land = topojson.feature(world, world.objects.land);
+          loaded = true;
+        }).catch(()=>{ loaded = false; });
+    };
+    document.head.appendChild(script1);
+  }
+  window.addGlobeDot = function(lat, lon){
+    dots.push({lat, lon, born: Date.now()});
+  };
+  // Pre-compute drawRing with clipping guard to prevent seam bug
+  function drawGeom(geom){
+    if(!geom) return;
+    const rings = geom.type==='Polygon' ? geom.coordinates
+                : geom.type==='MultiPolygon' ? geom.coordinates.flat()
+                : [];
+    rings.forEach(ring=>{
+      if(ring.length < 3) return;
+      ctx.beginPath();
+      let penDown = false;
+      let prevVisible = false;
+      for(let i=0;i<ring.length;i++){
+        const p = project(ring[i][0], ring[i][1]);
+        if(!p){
+          penDown = false;
+          prevVisible = false;
+          continue;
+        }
+        if(!penDown){ ctx.moveTo(p.sx,p.sy); penDown=true; }
+        else ctx.lineTo(p.sx,p.sy);
+        prevVisible = true;
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    });
+  }
+  function draw(){
+    if(!(R>0)||!isFinite(CX)||!isFinite(CY)) return;
+    ctx.clearRect(0,0,W,H);
+    // ── Ocean — dark, brand-aligned ──
+    const ocean = ctx.createRadialGradient(CX-R*.1,CY-R*.15,1,CX,CY,R);
+    ocean.addColorStop(0,'#0d1f14');
+    ocean.addColorStop(.65,'#091510');
+    ocean.addColorStop(1,'#060d09');
+    ctx.fillStyle = ocean;
+    ctx.beginPath(); ctx.arc(CX,CY,R,0,Math.PI*2); ctx.fill();
+    // Clip everything to sphere
+    ctx.save();
+    ctx.beginPath(); ctx.arc(CX,CY,R,0,Math.PI*2); ctx.clip();
+    // ── Graticules — very subtle green ──
+    ctx.lineWidth = .4;
+    ctx.strokeStyle = 'rgba(0,194,124,.08)';
+    for(let lon=-180;lon<=180;lon+=30){
+      ctx.beginPath();
+      let first=true;
+      for(let lat=-85;lat<=85;lat+=3){
+        const p=project(lon,lat);
+        if(!p){first=true;continue;}
+        first?ctx.moveTo(p.sx,p.sy):ctx.lineTo(p.sx,p.sy);first=false;
+      }
+      ctx.stroke();
+    }
+    for(let lat=-60;lat<=60;lat+=30){
+      ctx.beginPath();
+      let first=true;
+      for(let lon=-180;lon<=180;lon+=3){
+        const p=project(lon,lat);
+        if(!p){first=true;continue;}
+        first?ctx.moveTo(p.sx,p.sy):ctx.lineTo(p.sx,p.sy);first=false;
+      }
+      ctx.stroke();
+    }
+    // ── Land — green, brand color ──
+    ctx.fillStyle = 'rgba(0,194,124,.22)';
+    ctx.strokeStyle = 'rgba(0,210,130,.45)';
+    ctx.lineWidth = .5;
+    if(loaded && land){
+      land.features.forEach(f=>drawGeom(f.geometry));
+    } else {
+      // Simple fallback while loading
+      const fb=[
+        [[-125,50],[-82,25],[-81,30],[-70,43],[-53,47]],
+        [[-80,-5],[-35,-8],[-35,-55],[-75,-55],[-80,-5]],
+        [[-10,36],[40,36],[40,72],[-10,72],[-10,36]],
+        [[-18,37],[52,37],[52,-35],[-18,-35],[-18,37]],
+        [[26,72],[180,72],[180,-10],[95,-10],[95,8],[60,8],[60,22],[26,22],[26,72]],
+        [[113,-22],[154,-22],[154,-44],[113,-44],[113,-22]],
+      ];
+      fb.forEach(r=>{
+        ctx.beginPath();
+        r.forEach(([lon,lat],i)=>{
+          const p=project(lon,lat);if(!p)return;
+          i===0?ctx.moveTo(p.sx,p.sy):ctx.lineTo(p.sx,p.sy);
+        });
+        ctx.closePath();ctx.fill();ctx.stroke();
+      });
+    }
+    // ── Sale dots ──
+    const now = Date.now();
+    for(let i=dots.length-1;i>=0;i--){
+      const d=dots[i], age=(now-d.born)/1000;
+      if(age>5){dots.splice(i,1);continue;}
+      const p=project(d.lon,d.lat);
+      if(!p) continue;
+      const a=Math.max(0,1-age/5);
+      // outer pulse — two rings for depth
+      ctx.beginPath();ctx.arc(p.sx,p.sy,4+(age%1.5)*11*a,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(0,255,140,${a*.25})`;ctx.lineWidth=1;ctx.stroke();
+      ctx.beginPath();ctx.arc(p.sx,p.sy,3+(age%1.2)*6*a,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(0,255,140,${a*.45})`;ctx.lineWidth=1.2;ctx.stroke();
+      // core dot
+      ctx.beginPath();ctx.arc(p.sx,p.sy,4,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,224,120,${a})`;ctx.fill();
+      // bright center
+      ctx.beginPath();ctx.arc(p.sx,p.sy,1.8,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${a*.9})`;ctx.fill();
+    }
+    ctx.restore(); // end sphere clip
+    // ── Atmosphere — thin white halo, discrete ──
+    const atmo = ctx.createRadialGradient(CX,CY,R*.97,CX,CY,R*1.08);
+    atmo.addColorStop(0,'rgba(255,255,255,0)');
+    atmo.addColorStop(.5,'rgba(255,255,255,.04)');
+    atmo.addColorStop(1,'rgba(255,255,255,.11)');
+    ctx.fillStyle=atmo;
+    ctx.beginPath();ctx.arc(CX,CY,R*1.08,0,Math.PI*2);ctx.fill();
+    // ── Specular — top-left white glint ──
+    const spec=ctx.createRadialGradient(CX-R*.38,CY-R*.35,0,CX-R*.38,CY-R*.35,R*.55);
+    spec.addColorStop(0,'rgba(255,255,255,.09)');
+    spec.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=spec;
+    ctx.beginPath();ctx.arc(CX,CY,R,0,Math.PI*2);ctx.fill();
+  }
+  function tick(){
+    rotation += .0018;
+    draw();
+    requestAnimationFrame(tick);
+  }
+  function init(){
+    resize();
+    loadMap();
+    tick();
+    window.addEventListener('resize', resize);
+  }
+  if(document.readyState==='complete'){ init(); }
+  else{ window.addEventListener('load', init); }
+})();
+// ── LIVE COMMERCE ──
+const sales=[
+  {city:'Berlin',    flag:'🇩🇪',lat:52.5, lon:13.4, amt:149},
+  {city:'Montréal',  flag:'🇨🇦',lat:45.5, lon:-73.6,amt:89},
+  {city:'Tokyo',     flag:'🇯🇵',lat:35.7, lon:139.7,amt:299},
+  {city:'Paris',     flag:'🇫🇷',lat:48.8, lon:2.3,  amt:59},
+  {city:'New York',  flag:'🇺🇸',lat:40.7, lon:-74,  amt:129},
+  {city:'Sydney',    flag:'🇦🇺',lat:-33.8,lon:151.2,amt:49},
+  {city:'London',    flag:'🇬🇧',lat:51.5, lon:-0.1, amt:199},
+  {city:'Singapore', flag:'🇸🇬',lat:1.3,  lon:103.8,amt:79},
+  {city:'Dubai',     flag:'🇦🇪',lat:25.2, lon:55.3, amt:399},
+  {city:'São Paulo', flag:'🇧🇷',lat:-23.5,lon:-46.6,amt:39},
+];
+let idx=0,rev=0,ord=0;
+const revEl=document.getElementById('ss-rev');
+const ordEl=document.getElementById('ss-ord');
+const feedEl=document.getElementById('ss-feed-list');
+const toastLayer=document.getElementById('toast-layer');
+// ── mini sparkline (echoes the real Chart.js revenue chart in the dashboard) ──
+const sparkEl=document.getElementById('ss-spark');
+const sparkPts=[6,9,7,11,10,14,12,16,15,19,17,21];
+function drawSpark(){
+  if(!sparkEl) return;
+  const w=220,h=28,max=Math.max(...sparkPts,1),min=Math.min(...sparkPts);
+  const step=w/(sparkPts.length-1);
+  const pts=sparkPts.map((v,i)=>{
+    const x=i*step;
+    const y=h-2-((v-min)/(max-min||1))*(h-6);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  const line=pts.join(' ');
+  const area=`0,${h} ${line} ${w},${h}`;
+  sparkEl.innerHTML=`
+    <polyline points="${area}" fill="rgba(0,194,124,.14)" stroke="none"></polyline>
+    <polyline points="${line}" fill="none" stroke="#00C27C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></polyline>
+  `;
+}
+drawSpark();
+// Toast positions — left area of globe, scattered naturally
+const positions=[
+  {top:'12%',left:'8%'},{top:'55%',left:'5%'},
+  {top:'30%',left:'18%'},{top:'70%',left:'14%'},
+  {top:'20%',left:'42%'},{top:'62%',left:'38%'},
+  {top:'42%',left:'28%'},{top:'78%',left:'30%'},
+];
+let pi=0;
+function fire(){
+  const s=sales[idx++%sales.length];
+  rev+=s.amt; ord++;
+  if(revEl) revEl.textContent='$'+rev.toLocaleString('en-US');
+  if(ordEl) ordEl.textContent=ord;
+  if(window.addGlobeDot) window.addGlobeDot(s.lat,s.lon);
+  // sparkline — echoes the real dashboard's live revenue chart
+  sparkPts.shift();
+  sparkPts.push(sparkPts[sparkPts.length-1]+(s.amt/40));
+  drawSpark();
+  // feed
+  if(feedEl){
+    const el=document.createElement('div');
+    el.className='ss-feed-item new-item';
+    el.innerHTML=`<span class="ss-feed-ic">💳</span><span class="ss-feed-city">${s.flag} ${s.city}</span><span class="ss-feed-amt">+$${s.amt}</span>`;
+    feedEl.insertBefore(el,feedEl.firstChild);
+    if(feedEl.children.length>3) feedEl.lastChild.remove();
+  }
+  // toast on globe
+  if(toastLayer){
+    const pos=positions[pi++%positions.length];
+    const t=document.createElement('div');
+    t.className='s-toast';
+    t.style.cssText=`top:${pos.top};left:${pos.left};`;
+    t.innerHTML=`<span class="st-flag">${s.flag}</span><span class="st-city">${s.city}</span><span class="st-amt">+$${s.amt}</span>`;
+    toastLayer.appendChild(t);
+    setTimeout(()=>{t.style.animation='tOut .4s ease forwards';setTimeout(()=>t.remove(),400);},3200);
+    const visible=toastLayer.querySelectorAll('.s-toast');
+    if(visible.length>3) visible[0].remove();
+  }
+}
+// count up customers
+function cu(el,to,dur){if(!el)return;const t0=performance.now(),from=Math.round(to*.5);const f=n=>{const p=Math.min((n-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(from+(to-from)*e);if(p<1)requestAnimationFrame(f);};requestAnimationFrame(f);}
+setTimeout(()=>cu(document.getElementById('ss-cust'),98,1200),700);
+setTimeout(fire,1400);
+setTimeout(fire,3000);
+setInterval(fire,3400);
+// ── TOOLS ──
+const tools=[
+  {name:'Claude',c:'#D97757',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M7 16.5l5-9 5 9M8.5 13.5h7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`},
+  {name:'Cursor',c:'#1a1a1a',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M12 3L3 21h18L12 3z"/><path d="M12 10l-4 11h8L12 10z" fill="#1a1a1a"/></svg>`},
+  {name:'Bolt',c:'#7c3aed',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`},
+  {name:'Lovable',c:'#f43f5e',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 18s-7-4.5-7-9a4 4 0 018 0 4 4 0 018 0c0 4.5-7 9-7 9z" fill="white"/></svg>`},
+  {name:'ChatGPT',c:'#10a37f',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="9"/></svg>`},
+  {name:'Replit',c:'#3b82f6',svg:`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M2 2h9v7H2V2zm0 7h9v6H2V9zm0 6h9v7H2v-7zm10-13h10v6H12V2zm0 7h10v6H12V9z"/></svg>`},
+];
+const ttEl=document.getElementById('tool-tags');
+if(ttEl){ttEl.style.cssText='display:flex;gap:6px;flex-wrap:wrap;justify-content:center;';ttEl.innerHTML=tools.map(t=>`<div class="tool-tag"><div class="tool-ic" style="background:${t.c};">${t.svg}</div>${t.name}</div>`).join('');}
+// ── REVEAL ──
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.07});
+document.querySelectorAll('.rv,.hc,.cmp-tr,.ba-step').forEach(el=>{if(!el.classList.contains('rv'))el.classList.add('rv');obs.observe(el);});
+</script>
+</body>
+</html>
